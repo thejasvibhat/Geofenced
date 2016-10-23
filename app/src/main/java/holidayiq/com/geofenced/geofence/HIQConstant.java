@@ -37,7 +37,7 @@ public class HIQConstant {
 
         try {
 
-            SimpleDateFormat sfdate = new SimpleDateFormat("hh:mm a");
+            SimpleDateFormat sfdate = new SimpleDateFormat("dd MMM hh:mm a");
             Date date = new Date();
             date.setTime(milliseconds);
             return sfdate.format(date);
