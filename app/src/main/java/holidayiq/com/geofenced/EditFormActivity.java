@@ -96,11 +96,10 @@ public class EditFormActivity extends AppCompatActivity implements ItemAdapter.s
             View description_layout = null;
             View image_layout =null;
             if(obj.getType().equalsIgnoreCase("journey")){
-                header_layout = getLayoutInflater().inflate(R.layout.header_info, null);
+                header_layout = getLayoutInflater().inflate(R.layout.journey_header, null);
                 TextView ObjName = (TextView) header_layout.findViewById(R.id.header_text_1);
                 TextView time = (TextView) header_layout.findViewById(R.id.header_text_2);
-                time.setText(HIQConstant.getAmPmTime(obj.getStartTime()));
-                ObjName.setText(obj.getStartDestination() + " ");
+
                 //description_layout = getLayoutInflater().inflate(R.layout.description_text, null);
                 File dbFile = this.getDatabasePath("hiq_in_app.sqlite");
                 ArrayList<Integer> oIds = new ArrayList<>();
@@ -129,6 +128,17 @@ public class EditFormActivity extends AppCompatActivity implements ItemAdapter.s
                         .fit()
                         .centerInside()
                         .into((ImageView) image_layout.findViewById(R.id.mapImage));
+
+                time.setText(HIQConstant.getAmPmTime(obj.getStartTime())+" to "+HIQConstant.getAmPmTime(obj.getEndTime()));
+                //ObjName.setText(obj.getStartDestination()+" ");
+                ArrayList<String> destinations = new ArrayList<>();
+                destinations.add(obj.getStartDestination());
+                for (int y=0;y<obj.getIntermediateDestinations().size();y++){
+                    destinations.add(obj.getIntermediateDestinations().get(y).getDestinationName());
+                }
+                destinations.add(obj.getEndDestination());
+                ObjName.setText(TextUtils.join(" ➡ ", destinations));
+
                 type_icon.setImageResource(R.drawable.ic_p_flight_icon);
 
             }else if(obj.getType().equalsIgnoreCase("destination")){

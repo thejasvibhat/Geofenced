@@ -191,7 +191,18 @@ public class ItenaryPreparationHelper {
                     } else if (dataTracks.get(k).getEvent_type().equalsIgnoreCase("exit")) {
                         hotel_ss_obj.setExitTime(dataTracks.get(k).getTime());
                     }
-                    hotel_ss_obj.setPhotos(photoObjects);
+                    if(hotel_ss_obj.getExitTime()==0){
+                        if(hotel_ss_obj.getEnterTime()!=0){
+                            hotel_ss_obj.setExitTime(hotel_ss_obj.getEnterTime()+60*1000);
+                        }
+                    }
+                    if(hotel_ss_obj.getEnterTime()==0){
+                        if(hotel_ss_obj.getExitTime()!=0){
+                            hotel_ss_obj.setEnterTime(hotel_ss_obj.getExitTime()-60*1000);
+                        }
+                    }
+                    List<PhotoObject> photoObjects_h_ss = getPhotosBetweenTimeStamp(context,String.valueOf(hotel_ss_obj.getStartTime()/1000),String.valueOf(hotel_ss_obj.getEndTime()/1000));
+                    hotel_ss_obj.setPhotos(photoObjects_h_ss);
                     hotel_ss_objs.add(hotel_ss_obj);
 
                 } else {
@@ -237,8 +248,19 @@ public class ItenaryPreparationHelper {
                             } else if (dataTracks.get(k).getEvent_type().equalsIgnoreCase("exit")) {
                                 hotel_ss_obj.setExitTime(dataTracks.get(k).getTime());
                             }
-                            hotel_ss_obj.setPhotos(photoObjects);
-                            hotel_ss_objs.add(hotel_ss_obj);
+                            if(hotel_ss_obj.getExitTime()==0){
+                                if(hotel_ss_obj.getEnterTime()!=0){
+                                    hotel_ss_obj.setExitTime(hotel_ss_obj.getEnterTime()+60*1000);
+                                }
+                            }
+                            if(hotel_ss_obj.getEnterTime()==0){
+                                if(hotel_ss_obj.getExitTime()!=0){
+                                    hotel_ss_obj.setEnterTime(hotel_ss_obj.getExitTime()-60*1000);
+                                }
+                            }
+                        List<PhotoObject> photoObjects_h_ss = getPhotosBetweenTimeStamp(context,String.valueOf(hotel_ss_obj.getStartTime()/1000),String.valueOf(hotel_ss_obj.getEndTime()/1000));
+                        hotel_ss_obj.setPhotos(photoObjects_h_ss);
+                        hotel_ss_objs.add(hotel_ss_obj);
                     }
                 }
             }
