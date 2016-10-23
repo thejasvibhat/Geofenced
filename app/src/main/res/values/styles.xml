@@ -27,7 +27,8 @@
         <item name="colorAccent">@color/accent</item>
 
         <item name="android:spinnerItemStyle">@style/AppTheme.SpinnerItemStyle</item>
-        <item name="android:spinnerDropDownItemStyle">@style/AppTheme.SpinnerDropDownItemStyle</item>
+        <item name="android:spinnerDropDownItemStyle">@style/AppTheme.SpinnerDropDownItemStyle
+        </item>
     </style>
 
     <style name="Toolbar" parent="Theme.AppCompat">
@@ -63,4 +64,228 @@
         <item name="android:background">#33000000</item>
     </style>
 
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <style name="TextView">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:gravity">center|left</item>
+    </style>
+
+    <style name="LargeText" parent="TextView">
+        <item name="android:textAppearance">?android:attr/textAppearanceLarge</item>
+    </style>
+
+    <style name="MediumText" parent="TextView">
+        <item name="android:textAppearance">?android:attr/textAppearanceMedium</item>
+    </style>
+
+    <style name="SmallText" parent="TextView">
+        <item name="android:textAppearance">?android:attr/textAppearanceSmall</item>
+    </style>
+
+    <style name="LargeTextBlack" parent="TextView">
+        <item name="android:textAppearance">?android:attr/textAppearanceLarge</item>
+        <item name="android:textColor">@android:color/black</item>
+    </style>
+
+    <style name="MediumTextBlack" parent="TextView">
+        <item name="android:textAppearance">?android:attr/textAppearanceMedium</item>
+        <item name="android:textColor">@android:color/black</item>
+    </style>
+    <style name="MediumTextBlue" parent="TextView">
+        <item name="android:textAppearance">?android:attr/textAppearanceMedium</item>
+        <item name="android:textColor">@android:color/black</item>
+    </style>
+
+    <style name="SmallTextBlack" parent="TextView">
+        <item name="android:textAppearance">?android:attr/textAppearanceSmall</item>
+        <item name="android:textColor">@android:color/black</item>
+    </style>
+
+    <style name="LargeTextGray" parent="TextView">
+        <item name="android:textAppearance">?android:attr/textAppearanceLarge</item>
+        <item name="android:textColor">@android:color/black</item>
+    </style>
+
+    <style name="MediumTextGray" parent="TextView">
+        <item name="android:textAppearance">?android:attr/textAppearanceMedium</item>
+        <item name="android:textColor">@android:color/black</item>
+    </style>
+
+    <style name="SmallTextGray" parent="TextView">
+        <item name="android:textAppearance">?android:attr/textAppearanceSmall</item>
+        <item name="android:textColor">@android:color/black</item>
+    </style>
+
+    <style name="SmallTextGreen" parent="TextView">
+        <item name="android:textAppearance">?android:attr/textAppearanceSmall</item>
+        <item name="android:textColor">@android:color/black</item>
+    </style>
+
+    <style name="Text40" parent="TextView">
+        <item name="android:textSize">40sp</item>
+    </style>
+
+    <style name="Text35" parent="TextView">
+        <item name="android:textSize">40sp</item>
+    </style>
+
+    <style name="Text40Black" parent="TextView">
+        <item name="android:textSize">40sp</item>
+        <item name="android:textColor">@android:color/black</item>
+    </style>
+
+    <style name="Text40Grey" parent="TextView">
+        <item name="android:textSize">40sp</item>
+        <item name="android:textColor">@android:color/black</item>
+    </style>
+
+    <style name="Text18" parent="TextView">
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="Text22" parent="TextView">
+        <item name="android:textSize">22sp</item>
+    </style>
+
+    <style name="Text22Black" parent="TextView">
+        <item name="android:textSize">22sp</item>
+        <item name="android:textColor">@android:color/black</item>
+    </style>
+
+    <style name="Text22Grey" parent="TextView">
+        <item name="android:textSize">22sp</item>
+        <item name="android:textColor">@android:color/black</item>
+    </style>
+
+    <style name="Text23" parent="TextView">
+        <item name="android:textSize">23sp</item>
+    </style>
+
+    <style name="Text23Black" parent="TextView">
+        <item name="android:textSize">23sp</item>
+        <item name="android:textColor">@android:color/black</item>
+    </style>
+
+    <style name="Text23Grey" parent="TextView">
+        <item name="android:textSize">23sp</item>
+        <item name="android:textColor">@android:color/black</item>
+    </style>
+
+    <style name="Text20" parent="TextView">
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="Text20Black" parent="TextView">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@android:color/black</item>
+    </style>
+
+    <style name="Text20Grey" parent="TextView">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@android:color/black</item>
+    </style>
+
+    <style name="Text24" parent="TextView">
+        <item name="android:textSize">24sp</item>
+    </style>
+
+    <style name="Text24Black" parent="TextView">
+        <item name="android:textSize">24sp</item>
+        <item name="android:textColor">@android:color/black</item>
+    </style>
+
+    <style name="Text24Grey" parent="TextView">
+        <item name="android:textSize">24sp</item>
+        <item name="android:textColor">@android:color/black</item>
+    </style>
+
+    <style name="Text26" parent="TextView">
+        <item name="android:textSize">26sp</item>
+    </style>
+
+    <style name="Text26Black" parent="TextView">
+        <item name="android:textSize">26sp</item>
+        <item name="android:textColor">@android:color/black</item>
+    </style>
+
+    <style name="Text26Grey" parent="TextView">
+        <item name="android:textSize">26sp</item>
+        <item name="android:textColor">@android:color/black</item>
+    </style>
+
+    <style name="Text16" parent="TextView">
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="Text18Bold" parent="TextView">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="Text20Bold" parent="TextView">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="Text16Black" parent="TextView">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@android:color/black</item>
+    </style>
+
+    <style name="Text16Grey" parent="TextView">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@android:color/black</item>
+    </style>
+
+    <style name="Text15" parent="TextView">
+        <item name="android:textSize">15sp</item>
+    </style>
+
+    <style name="Text15Black" parent="TextView">
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">@android:color/black</item>
+    </style>
+
+    <style name="Text15Grey" parent="TextView">
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">@android:color/black</item>
+    </style>
+
+    <style name="Text12" parent="TextView">
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="Text12Black" parent="TextView">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@android:color/black</item>
+    </style>
+
+    <style name="Text12Grey" parent="TextView">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@android:color/black</item>
+    </style>
+
+    <style name="Text11" parent="TextView">
+        <item name="android:textSize">11sp</item>
+    </style>
+
+    <style name="Text11Black" parent="TextView">
+        <item name="android:textSize">11sp</item>
+        <item name="android:textColor">@android:color/black</item>
+    </style>
+
+    <style name="Text11Grey" parent="TextView">
+        <item name="android:textSize">11sp</item>
+        <item name="android:textColor">@android:color/black</item>
+    </style>
 </resources>

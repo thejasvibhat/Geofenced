@@ -32,4 +32,9 @@ public class ItenaryParent {
     public void setIternaryList(List<IternaryList> iternaryList) {
         this.iternaryList = iternaryList;
     }
+
+    public void addItineraryList(IternaryList oIternary,int index)
+    {
+        this.iternaryList.add(index,oIternary);
+    }
 }

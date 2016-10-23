@@ -182,7 +182,7 @@ public class ItenaryPreparationHelper {
         try {
             Uri uri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
             String[] projection = {MediaStore.Images.Media._ID, MediaStore.Images.Media.DISPLAY_NAME, MediaStore.Images.Media.DATA, MediaStore.Images.Media.DATE_ADDED};
-            Cursor cursor = context.getContentResolver().query(uri, projection, MediaStore.Images.Media.DATE_ADDED + ">= ? AND " + MediaStore.Images.Media.DATE_ADDED + " =< ?", new String[]{fromtime, totime}, null);
+            Cursor cursor = context.getContentResolver().query(uri, projection, MediaStore.Images.Media.DATE_ADDED + ">= ? AND " + MediaStore.Images.Media.DATE_ADDED + " <= ?", new String[]{fromtime, totime}, null);
 
             ArrayList<String> ids = new ArrayList<String>();
             if (cursor != null) {
