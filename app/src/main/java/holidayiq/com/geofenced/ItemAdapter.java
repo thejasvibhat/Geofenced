@@ -97,11 +97,11 @@ public class ItemAdapter extends
 
 				File f = new File(imageUrl);
 				span = 2;
-				Picasso.with(mContext).load(f).into(holder.imageView);
+				Picasso.with(mContext).load(f).resize(100,100).into(holder.imageView);
 			} else {
 				File f = new File(imageUrl);
 				span = 1;
-				Picasso.with(mContext).load(f).into(holder.imageView);
+				Picasso.with(mContext).load(f).resize(100,100).into(holder.imageView);
 			}
 			dimenId = R.dimen.staggered_child_medium;
 			final int size = mContext.getResources().getDimensionPixelSize(

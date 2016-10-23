@@ -218,7 +218,7 @@ public class EditFormActivity extends AppCompatActivity implements ItemAdapter.s
             @Override
             protected Void doInBackground(Void... params) {
                 if(listObj.getIternaryList().get(pos).getPhotos()==null || listObj.getIternaryList().get(pos).getPhotos().isEmpty() ) {
-                    list = ItenaryPreparationHelper.getPhotosBetweenTimeStamp(EditFormActivity.this, "1474645976", "1477224380");
+                    list = ItenaryPreparationHelper.getPhotosBetweenTimeStamp(EditFormActivity.this, "1477159737", "1477224380");
                 }else{
                     list = (ArrayList<PhotoObject>) listObj.getIternaryList().get(pos).getPhotos();
                 }
