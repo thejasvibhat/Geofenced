@@ -66,31 +66,33 @@ public class AddItineraray extends AppCompatActivity {
         String id = getIntent().getStringExtra("id");
         String type = getIntent().getStringExtra("type");
         String parentId = getIntent().getStringExtra("parentid");
-        String parentName = getIntent().getStringExtra("parentname");
+        String parentName ="";
+        DBManager dbManager = new DBManager();
+        parentName = dbManager.getDestinationNamefromId(parentId, this);
         GeoFenceDao dao = new GeoFenceDao(this);
         dao.open();
         mDuration = 60000;
         if(type.equals("hotel"))
         {
-            dao.createRecord(Integer.valueOf(getIntent().getStringExtra("id")), "Hotel", "Enter", "", "", name, mEnterTime, getApplicationContext());
-            dao.createRecord(Integer.valueOf(getIntent().getStringExtra("id")),"Hotel","Dwell","","",name,mEnterTime+30000,getApplicationContext());
-            dao.createRecord(Integer.valueOf(getIntent().getStringExtra("id")),"Hotel","Exit","","",name,mEnterTime + mDuration,getApplicationContext());
+            dao.createRecord(Integer.valueOf(getIntent().getStringExtra("id")), "Hotel", "Enter", parentName, parentId, name, mEnterTime, getApplicationContext());
+            dao.createRecord(Integer.valueOf(getIntent().getStringExtra("id")),"Hotel","Dwell",parentName,parentId,name,mEnterTime+30000,getApplicationContext());
+            dao.createRecord(Integer.valueOf(getIntent().getStringExtra("id")),"Hotel","Exit",parentName,parentId,name,mEnterTime + mDuration,getApplicationContext());
             dao.close();
 
         }
         else if(type.equals("destination"))
         {
-            dao.createRecord(Integer.valueOf(getIntent().getStringExtra("id")), "Destination", "Enter", "", "", name, mEnterTime, getApplicationContext());
-            dao.createRecord(Integer.valueOf(getIntent().getStringExtra("id")),"Destination","Dwell","","",name,mEnterTime+30000,getApplicationContext());
-            dao.createRecord(Integer.valueOf(getIntent().getStringExtra("id")),"Destination","Exit","","",name,mEnterTime + mDuration,getApplicationContext());
+            dao.createRecord(Integer.valueOf(getIntent().getStringExtra("id")), "Destination", "Enter", parentName, parentId, name, mEnterTime, getApplicationContext());
+            dao.createRecord(Integer.valueOf(getIntent().getStringExtra("id")),"Destination","Dwell",parentName,parentId,name,mEnterTime+30000,getApplicationContext());
+            dao.createRecord(Integer.valueOf(getIntent().getStringExtra("id")),"Destination","Exit",parentName,parentId,name,mEnterTime + mDuration,getApplicationContext());
             dao.close();
 
         }
         else
         {
-            dao.createRecord(Integer.valueOf(getIntent().getStringExtra("id")), "SS", "Enter", "", "", name, mEnterTime, getApplicationContext());
-            dao.createRecord(Integer.valueOf(getIntent().getStringExtra("id")),"SS","Dwell","","",name,mEnterTime+30000,getApplicationContext());
-            dao.createRecord(Integer.valueOf(getIntent().getStringExtra("id")),"SS","Exit","","",name,mEnterTime + mDuration,getApplicationContext());
+            dao.createRecord(Integer.valueOf(getIntent().getStringExtra("id")), "SS", "Enter", parentName, parentId, name, mEnterTime, getApplicationContext());
+            dao.createRecord(Integer.valueOf(getIntent().getStringExtra("id")),"SS","Dwell",parentName,parentId,name,mEnterTime+30000,getApplicationContext());
+            dao.createRecord(Integer.valueOf(getIntent().getStringExtra("id")),"SS","Exit",parentName,parentId,name,mEnterTime + mDuration,getApplicationContext());
             dao.close();
 
         }

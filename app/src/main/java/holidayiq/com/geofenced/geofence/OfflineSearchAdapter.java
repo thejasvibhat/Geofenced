@@ -32,10 +32,11 @@ public class OfflineSearchAdapter extends BaseAdapter {
             String type = (String) v.getTag(R.id.search_type);
             String name = (String) v.getTag(R.id.search_name);
             String id = (String) v.getTag(R.id.search_header);
+            String parent_id = (String) v.getTag(R.id.seach_sep);
 
 
 
-            ((SearchScreen) mContext).offlineResultsClicked(type, id,name);
+            ((SearchScreen) mContext).offlineResultsClicked(type, id,name,parent_id);
 
         }
     };
@@ -116,6 +117,7 @@ public class OfflineSearchAdapter extends BaseAdapter {
         convertView.setTag(R.id.search_name, osr.name);
         convertView.setTag(R.id.search_header, osr.id);
         convertView.setTag(R.id.search_type, osr.type);
+        convertView.setTag(R.id.seach_sep, osr.parent_id);
 
         convertView.setOnClickListener(clickListener);
 

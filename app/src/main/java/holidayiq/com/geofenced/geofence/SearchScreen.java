@@ -54,6 +54,7 @@ public class SearchScreen extends AppCompatActivity implements TextWatcher{
                     elemets obj = new elemets();
                     obj.id = String.valueOf(dd_res.getInt(dd_res.getColumnIndex(GeoDbHelper.DESTINATION_COLUMN_ID)));
                     obj.name = dd_res.getString(dd_res.getColumnIndex(GeoDbHelper.DESTINATION_COLUMN_NAME));
+                    obj.parent_id = String.valueOf(dd_res.getString(dd_res.getColumnIndex(GeoDbHelper.DESTINATION_COLUMN_ID)));
                     obj.type = "destination";
                     objs.add(obj);
                 }
@@ -64,6 +65,7 @@ public class SearchScreen extends AppCompatActivity implements TextWatcher{
                 while (hotel_res.moveToNext()) {
                     elemets obj = new elemets();
                     obj.id = String.valueOf(hotel_res.getInt(hotel_res.getColumnIndex(GeoDbHelper.RESORT_COLUMN_ID)));
+                    obj.parent_id = String.valueOf(hotel_res.getString(hotel_res.getColumnIndex(GeoDbHelper.RESORT_COULUMN_DESITNATION)));
                     obj.name = hotel_res.getString(hotel_res.getColumnIndex(GeoDbHelper.RESORT_COLUMN_NAME));
                     obj.type = "hotel";
                     objs.add(obj);
@@ -74,6 +76,7 @@ public class SearchScreen extends AppCompatActivity implements TextWatcher{
                 while (ss_res.moveToNext()) {
                     elemets obj = new elemets();
                     obj.id = String.valueOf(ss_res.getInt(ss_res.getColumnIndex(GeoDbHelper.SIGHT_SEEING_COULUMN_ID)));
+                    obj.parent_id = String.valueOf(ss_res.getString(ss_res.getColumnIndex(GeoDbHelper.SIGHT_SEEING_COULUMN_DESITNATION)));
                     obj.name = ss_res.getString(ss_res.getColumnIndex(GeoDbHelper.SIGHT_SEEING_COULUMN_NAME));
                     obj.type = "sightseeing";
                     objs.add(obj);
@@ -110,12 +113,13 @@ public class SearchScreen extends AppCompatActivity implements TextWatcher{
         mOfflineSearchAdapter.setData(objs);
         mOfflineSearchAdapter.notifyDataSetChanged();
     }
-    public void offlineResultsClicked(String type,String id,String name)
+    public void offlineResultsClicked(String type,String id,String name,String parent_id)
     {
         Intent intent = new Intent(SearchScreen.this,AddItineraray.class);
         intent.putExtra("id",id);
         intent.putExtra("name",name);
         intent.putExtra("type",type);
+        intent.putExtra("parentid",parent_id);
         startActivity(intent);
         finish();
     }

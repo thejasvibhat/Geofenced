@@ -60,7 +60,9 @@ public class GeoFenceDao {
         List<GeoSqlDataTrack> notificationDatas = new ArrayList<GeoSqlDataTrack>();
 
         Cursor cursor = database.query(GeoFenceSqlHelper.TABLE_DATA,
-                allColumns, GeoFenceSqlHelper.COLUMN_TRIP_ID+" = ?", new String[]{tripId}, null, null, "time DESC");
+                allColumns, null, null, null, null, "time DESC");
+//Cursor cursor = database.query(GeoFenceSqlHelper.TABLE_DATA,
+//                allColumns, GeoFenceSqlHelper.COLUMN_TRIP_ID+" = ?", new String[]{tripId}, null, null, "time DESC");
 
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
