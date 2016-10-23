@@ -42,10 +42,16 @@ public class ItemAdapter extends
 	private final Context mContext;
 
 	private final int mLayoutId;
-	public ArrayList<PhotoObject> newsArrayLst = new ArrayList<PhotoObject>();
+	public List<PhotoObject> newsArrayLst = new ArrayList<PhotoObject>();
 
 	static Typeface typeFace;
 	String imageUrl = "";
+	int itenary_pos = -1;
+	savePhotoObject callbckl;
+
+	public  interface savePhotoObject{
+		void editPhotos(int pos,List<PhotoObject> newsArrayLst);
+	}
 
 	public static class SimpleViewHolder extends RecyclerView.ViewHolder {
 		public final ImageView imageView;
@@ -60,11 +66,14 @@ public class ItemAdapter extends
 	}
 
 	public ItemAdapter(Context context, TwoWayView recyclerView, int layoutId,
-			ArrayList<PhotoObject> newsAry) {
+			ArrayList<PhotoObject> newsAry,int itenary_pos,
+					   savePhotoObject callback) {
 
 		mContext = context;
 		newsArrayLst = newsAry;
 		mLayoutId = layoutId;
+		this.itenary_pos = itenary_pos;
+		this.callbckl = callback;
 
 	}
 
@@ -111,7 +120,11 @@ public class ItemAdapter extends
 				@Override
 				public void onClick(View v) {
 					newsArrayLst.get(position).isSelected = !newsArrayLst.get(position).isSelected;
+					if(callbckl!=null) {
+						callbckl.editPhotos(itenary_pos, newsArrayLst);
+					}
 					notifyItemChanged(position);
+
 				}
 			});
 		}
@@ -122,7 +135,7 @@ public class ItemAdapter extends
 		return newsArrayLst.size();
 	}
 
-	public ArrayList<PhotoObject> getNewsArrayLst() {
+	public List<PhotoObject> getNewsArrayLst() {
 		return newsArrayLst;
 	}
 }

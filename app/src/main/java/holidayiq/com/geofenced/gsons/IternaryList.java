@@ -76,6 +76,14 @@ public class IternaryList {
     @Expose
     private long exitTime;
 
+    @SerializedName("description")
+    @Expose
+    private String description;
+
+    @SerializedName("enable")
+    @Expose
+    private boolean enable = true;
+
     /**
      *
      * @return
@@ -406,5 +414,21 @@ public class IternaryList {
 
     public void setParentDestinationName(String parentDestinationName) {
         this.parentDestinationName = parentDestinationName;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public boolean isEnable() {
+        return enable;
+    }
+
+    public void setEnable(boolean enable) {
+        this.enable = enable;
     }
 }

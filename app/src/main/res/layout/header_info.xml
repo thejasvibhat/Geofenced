@@ -29,6 +29,7 @@
         android:text="05:15 AM"/>
 
     <Switch
+        android:id="@+id/enable"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"

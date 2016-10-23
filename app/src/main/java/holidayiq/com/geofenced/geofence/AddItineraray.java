@@ -35,6 +35,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import holidayiq.com.geofenced.ItemAdapter;
 import holidayiq.com.geofenced.ItenaryPreparationHelper;
@@ -68,7 +69,7 @@ public class AddItineraray extends AppCompatActivity {
         oList.setObjectName(getIntent().getStringExtra("name"));
         if(mAdapter != null)
         {
-            ArrayList<PhotoObject> oArr = mAdapter.getNewsArrayLst();
+            List<PhotoObject> oArr = mAdapter.getNewsArrayLst();
             ArrayList<PhotoObject> oAcceptObjArr = new ArrayList<>();
             if(oArr.size() > 0)
             {
@@ -214,7 +215,7 @@ public class AddItineraray extends AppCompatActivity {
                 mRecyclerView.setOrientation(org.lucasr.twowayview.TwoWayLayoutManager.Orientation.HORIZONTAL);
                 final Drawable divider = getResources().getDrawable(R.drawable.divider);
                 mRecyclerView.addItemDecoration(new DividerItemDecoration(divider));
-                mAdapter = new ItemAdapter(AddItineraray.this, mRecyclerView, R.layout.activity_main, list);
+                mAdapter = new ItemAdapter(AddItineraray.this, mRecyclerView, R.layout.activity_main, list,0,null);
                 mRecyclerView.setAdapter(mAdapter);
                 mRecyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
                     @SuppressLint("NewApi") @Override

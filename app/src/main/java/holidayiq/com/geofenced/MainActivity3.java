@@ -49,7 +49,7 @@ public class MainActivity3 extends Activity {
        }
        final Drawable divider = getResources().getDrawable(R.drawable.divider);
        mRecyclerView.addItemDecoration(new DividerItemDecoration(divider));
-       ItemAdapter mAdapter = new ItemAdapter(MainActivity3.this, mRecyclerView, R.layout.activity_main, null);
+       ItemAdapter mAdapter = new ItemAdapter(MainActivity3.this, mRecyclerView, R.layout.activity_main, null,0,null);
        mRecyclerView.setAdapter(mAdapter);
        mRecyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
            @SuppressLint("NewApi") @Override
