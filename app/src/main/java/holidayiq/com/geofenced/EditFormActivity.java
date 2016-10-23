@@ -52,11 +52,12 @@ public class EditFormActivity extends AppCompatActivity implements ItemAdapter.s
         super.onCreate(savedInstanceState);
 
         try {
-            Reservoir.init(this, 204800); //in bytes
+            Reservoir.init(this, 1004800); //in bytes
         } catch (Exception e) {
             //failure
         }
         setContentView(R.layout.scroll_render);
+        content_layout = (LinearLayout) findViewById(R.id.content_layout);
         new AsyncTask<Void,Void,Void>(){
 
             @Override
@@ -64,11 +65,15 @@ public class EditFormActivity extends AppCompatActivity implements ItemAdapter.s
                 ItenaryPreparationHelper.prepareItenary(EditFormActivity.this);
                 return null;
             }
+
+            @Override
+            protected void onPostExecute(Void aVoid) {
+                super.onPostExecute(aVoid);
+                reloadData();
+            }
         }.execute();
         triggerGeoFence();
-         content_layout = (LinearLayout) findViewById(R.id.content_layout);
 
-        reloadData();
 
     }
 
