@@ -1,15 +1,19 @@
 package holidayiq.com.geofenced;
 
 import android.annotation.SuppressLint;
+import android.content.DialogInterface;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.os.AsyncTask;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AbsListView;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -70,44 +74,6 @@ public class EditFormActivity extends AppCompatActivity {
                 image_layout = getLayoutInflater().inflate(R.layout.single_image_layput, null);
                 type_icon.setImageResource(R.drawable.ic_p_flight_icon);
 
-//                for(int j=0;j<obj.getIntermediateDestinations().size();j++){
-//                    IntermediateDestination dst = obj.getIntermediateDestinations().get(j);
-//                    {
-//                        View blanket_layout1 = getLayoutInflater().inflate(R.layout.blanket_itenary_object, null);
-//                        LinearLayout cont1 = (LinearLayout) blanket_layout1.findViewById(R.id.content_layout);
-//                        ImageView type_icon1 = (ImageView) blanket_layout1.findViewById(R.id.type_icon);
-//                        View header_layout1 = getLayoutInflater().inflate(R.layout.header_info, null);
-//                        TextView ObjName1 = (TextView) header_layout1.findViewById(R.id.header_text_1);
-//                        ObjName1.setText(dst.getDestinationName()+" ");
-//                        TextView time1 = (TextView) header_layout1.findViewById(R.id.header_text_2);
-//                        if(dst.getExitedTime()!=0) {
-//                            time1.setText(HIQConstant.getAmPmTime(dst.getExitedTime()));
-//                        }else{
-//                            time1.setText(HIQConstant.getAmPmTime(dst.getExitedTime()));
-//                        }
-//                        View description_layout1 = getLayoutInflater().inflate(R.layout.bold_description_2, null);
-//                        View image_layout1 = getLayoutInflater().inflate(R.layout.three_image_layout, null);
-//                        type_icon1.setImageResource(R.drawable.destination_search_icon);
-//
-//                        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-//                        params.setMargins(10,0,10,bottomPad);
-//                        blanket_layout1.setLayoutParams(params);
-//
-//                        content_layout.addView(blanket_layout1);
-//                        if(header_layout1!=null) {
-//                            cont1.addView(header_layout1);
-//                        }
-//                        if(description_layout1!=null) {
-//                            cont1.addView(description_layout1);
-//                        }
-//                        if(image_layout1!=null) {
-//                            LinearLayout.LayoutParams params_img = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-//                            params_img.setMargins(0,imagePad,0,0);
-//                            image_layout1.setLayoutParams(params_img);
-//                            cont1.addView(image_layout1);
-//                        }
-//                    }
-//                }
             }else if(obj.getType().equalsIgnoreCase("destination")){
                 header_layout = getLayoutInflater().inflate(R.layout.header_info, null);
                 TextView ObjName = (TextView) header_layout.findViewById(R.id.header_text_1);
@@ -118,7 +84,7 @@ public class EditFormActivity extends AppCompatActivity {
                 }else{
                     time.setText(HIQConstant.getAmPmTime(obj.getExitTime()));
                 }
-                description_layout = getLayoutInflater().inflate(R.layout.bold_description_2, null);
+                description_layout = getLayoutInflater().inflate(R.layout.description_text, null);
                 image_layout = getLayoutInflater().inflate(R.layout.three_image_layout, null);
                 type_icon.setImageResource(R.drawable.destination_search_icon);
             }else if(obj.getType().equalsIgnoreCase("hotel")){
@@ -131,7 +97,7 @@ public class EditFormActivity extends AppCompatActivity {
                 }else{
                     time.setText(HIQConstant.getAmPmTime(obj.getExitTime()));
                 }
-                description_layout = getLayoutInflater().inflate(R.layout.bold_descrition, null);
+                description_layout = getLayoutInflater().inflate(R.layout.description_text, null);
                 image_layout = getLayoutInflater().inflate(R.layout.photo_selection, null);
                 TwoWayView mRecyclerView = (TwoWayView) image_layout.findViewById(R.id.list);
                 setPhotoRecycler(mRecyclerView);
@@ -162,6 +128,13 @@ public class EditFormActivity extends AppCompatActivity {
             }
             if(description_layout!=null) {
                 cont.addView(description_layout);
+                View add_desc = description_layout.findViewById(R.id.add_description);
+                add_desc.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        showChangeLangDialog();
+                    }
+                });
             }
             if(image_layout!=null) {
                 LinearLayout.LayoutParams params_img = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
@@ -266,6 +239,29 @@ public class EditFormActivity extends AppCompatActivity {
             }
         }.execute();
 
+    }
+
+    public void showChangeLangDialog() {
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = this.getLayoutInflater();
+        final View dialogView = inflater.inflate(R.layout.custom_dialog, null);
+        dialogBuilder.setView(dialogView);
+
+        final EditText edt = (EditText) dialogView.findViewById(R.id.edit1);
+
+        dialogBuilder.setMessage("Enter Description here");
+        dialogBuilder.setPositiveButton("Done", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                //do something with edt.getText().toString();
+            }
+        });
+        dialogBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                //pass
+            }
+        });
+        AlertDialog b = dialogBuilder.create();
+        b.show();
     }
 
 

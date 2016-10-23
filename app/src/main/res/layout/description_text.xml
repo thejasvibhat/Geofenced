@@ -13,6 +13,19 @@
         android:textColor="@android:color/black"
         android:textSize="11sp"
         app:customTextviewFont="Ubuntu-Regular.ttf"
-        android:text="Recommeded - Scenic drive, Good roads \nDuring the drive, witness the magical bueaty of the surroundings and also enjoy stunning views of dehradun. "/>
+        />
+
+
+    <com.beardedhen.androidbootstrap.BootstrapButton
+        android:id="@+id/add_description"
+        style="@style/wrapping_button"
+        android:text="Enter Your Experience Here"
+        android:layout_width="match_parent"
+        app:bootstrapBrand="success"
+        app:roundedCorners="true"
+        app:showOutline="true"
+        />
+
+    <!--android:text="Recommeded - Scenic drive, Good roads \nDuring the drive, witness the magical bueaty of the surroundings and also enjoy stunning views of dehradun. "-->
 
 </LinearLayout>
