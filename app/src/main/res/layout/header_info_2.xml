@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_marginTop="3dp"
+    android:layout_centerVertical="true"
+    android:layout_height="match_parent">
+
+    <holidayiq.com.geofenced.TypefacedTextView
+        android:id="@+id/header_text_type2_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/black"
+        android:textSize="11sp"
+        android:layout_marginRight="5dp"
+        app:customTextviewFont="Ubuntu-Regular.ttf"
+        android:text="By"/>
+
+    <holidayiq.com.geofenced.TypefacedTextView
+        android:layout_toRightOf="@id/header_text_type2_1"
+        android:id="@+id/header_text_type2_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:maxLength="25"
+        app:customTextviewFont="Ubuntu-Bold.ttf"
+        android:textColor="@android:color/black"
+        android:text="Car "
+        android:textSize="13sp"
+        />
+
+    <Switch
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:checked="true"
+        />
+
+</RelativeLayout>
