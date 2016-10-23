@@ -59,4 +59,6 @@
     <dimen name="text_title">20dp</dimen>
     <dimen name="text_description">17dp</dimen>
     <dimen name="text_title_list">16sp</dimen>
+    <dimen name="micro_padding">4dp</dimen>
+
 </resources>
