@@ -61,8 +61,8 @@ public class ItenaryPreparationHelper {
         journey.setEndDestinationId(endData.getParent_id());
         journey.setEndDestination(endData.getParent_name());
         journey.setStartTime(startData.getTime());
-        journey.setEndTime(endData.getTime());
-        List<PhotoObject> photoObjects = getPhotosBetweenTimeStamp(context,String.valueOf(startData.getTime()/1000),String.valueOf(endData.getTime()/1000));
+        journey.setEndTime(dataTracks.get(0).getTime());
+        List<PhotoObject> photoObjects = getPhotosBetweenTimeStamp(context,String.valueOf(startData.getTime()/1000),String.valueOf(journey.getEndTime()/1000));
         journey.setPhotos(photoObjects);
         journey.setApprovedPhotos(new ArrayList<String>());
         journey.setRejectedPhotos(new ArrayList<String>());
@@ -74,13 +74,34 @@ public class ItenaryPreparationHelper {
                     IntermediateDestination newObj = new IntermediateDestination();
                     newObj.setDestinationId(dataTracks.get(i).getParent_id());
                     newObj.setDestinationName(dataTracks.get(i).getParent_name());
-                    newObj.setExitedTime(dataTracks.get(i).getTime());
+                    if(dataTracks.get(i).getEvent_type().equalsIgnoreCase("enter")){
+                        newObj.setReachedTime(dataTracks.get(i).getTime());
+                    }else if(dataTracks.get(i).getEvent_type().equalsIgnoreCase("exit")){
+                        newObj.setExitedTime(dataTracks.get(i).getTime());
+                    }else if(dataTracks.get(i).getEvent_type().equalsIgnoreCase("dwell")){
+                        newObj.setExitedTime(dataTracks.get(i).getTime());
+                    }
                     intermediateDestinations.add(newObj);
                 }else {
                     boolean recordExist = false;
                     for (int j = 0; j < intermediateDestinations.size(); j++) {
                         if (intermediateDestinations.get(j).getDestinationId() == dataTracks.get(i).getParent_id()) {
-                            intermediateDestinations.get(j).setReachedTime(dataTracks.get(i).getTime());
+                            if(dataTracks.get(i).getEvent_type().equalsIgnoreCase("enter")){
+                                intermediateDestinations.get(j).setReachedTime(dataTracks.get(i).getTime());
+                            }else if(dataTracks.get(i).getEvent_type().equalsIgnoreCase("exit")){
+                                intermediateDestinations.get(j).setExitedTime(dataTracks.get(i).getTime());
+                            }else if(dataTracks.get(i).getEvent_type().equalsIgnoreCase("dwell")){
+                                intermediateDestinations.get(j).setExitedTime(dataTracks.get(i).getTime());
+                            }
+                            if(intermediateDestinations.get(j).getReachedTime()==0){
+                                if(intermediateDestinations.get(j).getExitedTime()!=0){
+                                    intermediateDestinations.get(j).setReachedTime(intermediateDestinations.get(j).getExitedTime()-60*1000);
+                                }
+                            }else if(intermediateDestinations.get(j).getExitedTime()==0){
+                                if(intermediateDestinations.get(j).getReachedTime()!=0){
+                                    intermediateDestinations.get(j).setExitedTime(intermediateDestinations.get(j).getReachedTime()+60*1000);
+                                }
+                            }
                             recordExist = true;
                         }
                     }
@@ -89,7 +110,13 @@ public class ItenaryPreparationHelper {
                         IntermediateDestination newObj = new IntermediateDestination();
                         newObj.setDestinationId(dataTracks.get(i).getParent_id());
                         newObj.setDestinationName(dataTracks.get(i).getParent_name());
-                        newObj.setExitedTime(dataTracks.get(i).getTime());
+                        if(dataTracks.get(i).getEvent_type().equalsIgnoreCase("enter")){
+                            newObj.setReachedTime(dataTracks.get(i).getTime());
+                        }else if(dataTracks.get(i).getEvent_type().equalsIgnoreCase("exit")){
+                            newObj.setExitedTime(dataTracks.get(i).getTime());
+                        }else if(dataTracks.get(i).getEvent_type().equalsIgnoreCase("dwell")){
+                            newObj.setExitedTime(dataTracks.get(i).getTime());
+                        }
                         intermediateDestinations.add(newObj);
                     }
                 }
@@ -107,7 +134,8 @@ public class ItenaryPreparationHelper {
             destination.setParentDestinationId(dst.getDestinationId());
             destination.setEnterTime(dst.getReachedTime());
             destination.setExitTime(dst.getExitedTime());
-            destination.setPhotos(photoObjects);
+            List<PhotoObject> photoObjects_int = getPhotosBetweenTimeStamp(context,String.valueOf(dst.getReachedTime()/1000),String.valueOf(dst.getExitedTime()/1000));
+            destination.setPhotos(photoObjects_int);
             list.add(destination);
         }
 
@@ -155,6 +183,16 @@ public class ItenaryPreparationHelper {
                                 existObj.setExitTime(dataTracks.get(k).getTime());
                             } else if (dataTracks.get(k).getEvent_type().equalsIgnoreCase("exit")) {
                                 existObj.setExitTime(dataTracks.get(k).getTime());
+                            }
+                            if(existObj.getExitTime()==0){
+                                if(existObj.getEnterTime()!=0){
+                                    existObj.setExitTime(existObj.getEnterTime()+60*1000);
+                                }
+                            }
+                            if(existObj.getEnterTime()==0){
+                                if(existObj.getExitTime()!=0){
+                                    existObj.setEnterTime(existObj.getExitTime()-60*1000);
+                                }
                             }
                             recordExist = true;
                         }
