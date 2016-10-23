@@ -341,6 +341,10 @@ public class GeofenceTransitionsIntentService extends IntentService {
 
             if(geoId.equalsIgnoreCase(GeoFenceService.HOME_GEOFENCE_TAG_NAME)){
                 // show the home notification
+                String tripId = HIQSharedPrefrence.getString("tripId",getApplicationContext());
+                if(tripId == null || tripId.equals("0"))
+                    HIQSharedPrefrence.putString("tripId", UUID.randomUUID().toString(),getApplicationContext());
+
                 HIQSharedPrefrence.putBoolean("exited", true, getApplicationContext());
                 HIQSharedPrefrence.putString("tripId", UUID.randomUUID().toString(),getApplicationContext());
                 //logEvents("Home",geoId,"Exit");
