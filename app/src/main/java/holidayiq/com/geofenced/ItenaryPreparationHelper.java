@@ -6,8 +6,10 @@ import android.net.Uri;
 import android.provider.MediaStore;
 import android.util.Log;
 
+import com.anupcowkur.reservoir.Reservoir;
 import com.google.gson.Gson;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -189,7 +191,11 @@ public class ItenaryPreparationHelper {
 
         itenaryParent.setIternaryList(list);
         String journsada = gson.toJson(itenaryParent);
-        Log.e("afafaf",journsada);
+        try {
+            Reservoir.put("dataObj",itenaryParent);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public static ArrayList<PhotoObject> getPhotosBetweenTimeStamp(Context context,String fromtime,String totime) {
