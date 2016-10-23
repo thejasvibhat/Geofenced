@@ -19,5 +19,127 @@
     <color name="primaryDark">#00796b</color>
     <color name="accent">#FF24BEAF</color>
     <color name="accentLight">#5acabf</color>
+    <string-array name="colors">
+        <item name="bright_pink">#1a9829</item>
+        <item name="red">#5eb951</item>
+        <item name="orange">#a9e3a3</item>
+        <item name="yellow">#ffea00</item>
+        <item name="green">#ffc600</item>
+        <item name="spring_green">#fc7400</item>
+        <item name="azure">#9fa0a4</item>
+    </string-array>
 
+    <color name="gray_1">#C0C0C0</color>
+    <color name="black_half_trans">#AA000000</color>
+    <color name="gray_half_trans">#77CCCCCC</color>
+    <color name="white_half_trans">#AAffffff</color>
+    <color name="black">#2b2d2e</color>
+    <color name="text_grey">#6a6a6a</color>
+    <color name="blog_color">#F2B85D</color>
+    <color name="blog_search_color">#F2C886</color>
+
+    <color name="nobtn_color">#5e5e5e</color>
+    <color name="text_gray">#777777</color>
+    <color name="menu_text_color">#abacac</color>
+    <color name="menu_sep_color">#515354</color>
+    <color name="custom_selected">#7e52c0</color>
+    <color name="custom_background">#efefef</color>
+    <color name="search_custom_background">#AAf2f2f2</color>
+    <color name="charcoal">#2d2e30</color>
+    <color name="white">#FFFFFF</color>
+    <color name="gray_2">#AFAFAF</color>
+    <color name="tab_bg">#f2f2f3</color>
+    <color name="background_tab_pressed">#6633B5E5</color>
+    <!-- <color name="custom_background">#F0F8DB</color> -->
+
+    <color name="custom_text_today">#777777</color>
+    <color name="custom_background_today">#7e52c0</color>
+    <color name="custom_text_selected">#FFFFFFFF</color>
+    <color name="custom_text_inactive">#00000000</color>
+    <color name="transparent">#00000000</color>
+    <color name="date_text">#2b2d2e</color>
+    <color name="bg_light_blue">#EBF5FF</color>
+    <color name="header_bg_color">#f1f1f1</color>
+    <color name="sep_line_color">#efefef</color>
+    <color name="draft_text_color">#0d7aff</color>
+    <color name="draft_text_color_deactive">#cacacf</color>
+    <color name="filter_text">#444444</color>
+    <color name="purple_bg">#7249B8</color>
+    <color name="gray_box">#cccccc</color>
+    <color name="yelo_box">#ffd401</color>
+    <color name="sightseeing_theme_color">#4681cf</color>
+    <color name="hotel_theme_color">#854ec5</color>
+    <color name="hotel_theme_color_pressed">#CC854ec5</color>
+    <color name="destination_theme_color">#fe4567</color>
+    <color name="profile_theme_color">#2b2d2e</color>
+    <color name="profile_header_color">#e3412c</color>
+    <color name="reset_bg_color">#24262d</color>
+    <color name="black_trans">#992b2d2e</color>
+    <color name="experience_bar_scale_normal">#f1f1f1</color>
+    <color name="hotel_list_border_sep">#cfcfd1</color>
+    <color name="custom_black">#2b2d2e</color>
+    <color name="custom_black_home">#404040</color>
+    <color name="blue_text">#34b9e6</color>
+    <color name="custom_blue_text">#07c</color>
+    <color name="add_new_place_header">#50de72</color>
+    <color name="how_to_write_good_review">#0188CC</color>
+    <color name="search_box_when_header">#BFBFBF</color>
+    <color name="landing_trip_bg">#B33a7543</color>
+    <color name="progresspurple">#854ec5</color>
+    <color name="progress_bg">#919191</color>
+    <color name="progress_grey">#989898</color>
+    <!-- Package related color -->
+
+    <color name="package_theme">#40BCBC</color>
+    <color name="package_dest_lis_header">#EDEDED</color>
+    <color name="light_blue">#33B5E5</color>
+    <color name="action_bar_tabbar_color">#D6D6D6</color>
+
+    <!--Blog-->
+    <color name="blog_separator">#DCDCDC</color>
+    <color name="blog_top_nav">#f2b85d</color>
+    <color name="blog_title">#404040</color>
+    <color name="blog_desc">#9A9A9A</color>
+    <color name="been_shortlist_bg">#202020</color>
+    <color name="been_shortlist_textcolor">#999999</color>
+    <color name="been_shortlist_sep">#DDDDDD</color>
+    <color name="blog_reco_bg">#FAFAFA</color>
+    <color name="been_sel_textcolor">#2af35e</color>
+    <color name="home_gray">#F1F2F2</color>
+    <color name="blog_been_default_bg">#C0C1C3</color>
+    <color name="blog_been_selected_bg">#58924E</color>
+    <color name="pink">#e91e63</color>
+    <color name="background">#e9e9e9</color>
+    <color name="pink_pressed">#ec407a</color>
+    <color name="maps_bg">#ed3d39</color>
+    <color name="holidayiq_color">#854ec5</color>
+    <color name="profile_green">#58a71d</color>
+    <color name="profile_card_bg">#EEEEEE</color>
+    <color name="progress_color">#ffd401</color>
+    <color name="progress_highlighted">#cca418</color>
+    <color name="price_text">#2AA43C</color>
+    <color name="following_selected">#4681cf</color>
+    <color name="following_text_selected">#404041</color>
+    <color name="custom_green">#1DA917</color>
+    <color name="text_color">#666666</color>
+    <color name="hotel_avail_color">#1aa12a</color>
+    <color name="dark_gray_font">#6f6f6f</color>
+    <color name="bg_gray">#f4f4f4</color>
+    <color name="pending_review">#f46f0d</color>
+    <color name="rejected_review">#e3412c</color>
+    <color name="save_draft">#8a8a8a</color>
+
+    <!-- status bar colors -->
+    <color name="dark_purple">#6a3e9d</color>
+    <color name="dark_blue">#3867a5</color>
+    <color name="dark_green">#339696</color>
+    <color name="dark_yellow">#c1934a</color>
+    <color name="dark_pink">#cb3752</color>
+    <color name="dark_black">#191919</color>
+    <color name="dark_red">#88271a</color>
+    <color name="profile_gray_bg">#f2f2f2</color>
+    <color name="download_destoverview_text">#71b4dd</color>
+    <color name="download_destoverview_inside_box">#f0f7fb</color>
+    <color name="horizontal_progress_color">#8249c3</color>
+    <color name="customized_package_color">#272A38</color>
 </resources>

@@ -1,9 +1,11 @@
 package holidayiq.com.geofenced;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.os.AsyncTask;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
@@ -12,6 +14,7 @@ import android.view.View;
 import android.widget.AbsListView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
@@ -21,11 +24,13 @@ import org.lucasr.twowayview.widget.TwoWayView;
 
 import java.util.ArrayList;
 
+import holidayiq.com.geofenced.geofence.AddItineraray;
 import holidayiq.com.geofenced.geofence.ExceptionUtils;
 import holidayiq.com.geofenced.geofence.GeoFenceHelper;
 import holidayiq.com.geofenced.geofence.HIQConstant;
 import holidayiq.com.geofenced.geofence.HIQLocationManager;
 import holidayiq.com.geofenced.geofence.InAppDBHelper;
+import holidayiq.com.geofenced.geofence.SearchScreen;
 import holidayiq.com.geofenced.gsons.ItenaryParent;
 import holidayiq.com.geofenced.gsons.IternaryList;
 
@@ -57,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
                 return null;
             }
         }.execute();
+        initView();
         triggerGeoFence();
 //        LinearLayout content_layout = (LinearLayout) findViewById(R.id.content_layout);
         Gson gson = new Gson();
@@ -78,54 +84,24 @@ public class MainActivity extends AppCompatActivity {
 //            }
 //        }
 
-
-        mRecyclerView = (TwoWayView) findViewById(R.id.list);
-        mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setLongClickable(false);
-        mRecyclerView.setOrientation(org.lucasr.twowayview.TwoWayLayoutManager.Orientation.HORIZONTAL);
-
-
-        for(int i =0; i< 10; i++){
-            NewsStructure newsStr = new NewsStructure();
-            newsStr.setmId(""+strImageUrl[i]);
-            newsArrayLst.add(newsStr);
-        }
-        final Drawable divider = getResources().getDrawable(R.drawable.divider);
-        mRecyclerView.addItemDecoration(new DividerItemDecoration(divider));
-        ItemAdapter mAdapter = new ItemAdapter(MainActivity.this, mRecyclerView, R.layout.activity_main, null);
-        mRecyclerView.setAdapter(mAdapter);
-        mRecyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
-            @SuppressLint("NewApi") @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int scrollState) {
-                boolean pauseOnScroll = false; // or true
-                boolean pauseOnFling = false; // or false
-                final Picasso picasso = Picasso.with(MainActivity.this);
-                switch (scrollState) {
-                    case AbsListView.OnScrollListener.SCROLL_STATE_IDLE:
-                        picasso.resumeTag("mylist");
-                        break;
-                    case AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL:
-                        if (pauseOnScroll) {
-                            picasso.pauseTag("mylist");
-
-                        }
-                        break;
-                    case AbsListView.OnScrollListener.SCROLL_STATE_FLING:
-                        if (pauseOnFling) {
-                            picasso.pauseTag("mylist");
-
-                        }
-                        break;
+    }
+    private void AddCustomItinerary()
+    {
+        Intent search = new Intent(MainActivity.this, SearchScreen.class);
+        startActivity(search);
+    }
+    private void initView()
+    {
+        FloatingActionButton oBut = (FloatingActionButton) findViewById(R.id.fab);
+        if (oBut != null) {
+            oBut.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(getApplicationContext(),"came here",Toast.LENGTH_SHORT).show();
+                    AddCustomItinerary();
                 }
-
-
-            }
-
-            @SuppressLint("NewApi") @Override
-            public void onScrolled(RecyclerView recyclerView, int i, int i2) {
-
-            }
-        });
+            });
+        }
     }
 
     private void triggerGeoFence(){

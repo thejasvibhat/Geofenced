@@ -61,4 +61,5 @@
     <dimen name="text_title_list">16sp</dimen>
     <dimen name="micro_padding">4dp</dimen>
 
+    <dimen name="fab_margin">16dp</dimen>
 </resources>

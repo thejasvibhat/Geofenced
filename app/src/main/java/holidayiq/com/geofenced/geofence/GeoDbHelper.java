@@ -39,6 +39,18 @@ public class GeoDbHelper {
         return "SELECT * from "+DESTINATION_TABLE_NAME;
     }
 
+    public static String getAllHotelsQueryKey(String q){
+        return "SELECT * from "+RESORT_TABLE_NAME+ " where displayName like \'"+q+"%\'";
+    }
+
+    public static String getAllSightseeingQueryKey(String q){
+        return "SELECT * from "+SIGHT_SEEING_TABLE_NAME+" where attractionName like \'"+q+"%\'";
+    }
+
+    public static String getAllDestinationQueryKey(String q){
+        return "SELECT * from "+DESTINATION_TABLE_NAME+ " where destinationName like \'"+q+"%\'";
+    }
+
     public static String getHotelsQueryDest(String destId){
         return "SELECT * from "+SIGHT_SEEING_TABLE_NAME +" WHERE destinationId = "+destId;
     }
