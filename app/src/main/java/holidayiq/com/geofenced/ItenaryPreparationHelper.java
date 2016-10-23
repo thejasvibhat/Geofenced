@@ -28,7 +28,7 @@ public class ItenaryPreparationHelper {
         try {
             GeoFenceDao dao = new GeoFenceDao(context);
             dao.open();
-            String tripId = HIQSharedPrefrence.getString("processTripId",context);
+            String tripId = HIQSharedPrefrence.getString("tripId",context);
             List<GeoSqlDataTrack> dataTracks = dao.getAllRecords(tripId);
             dao.close();
             Gson gson = new Gson();
