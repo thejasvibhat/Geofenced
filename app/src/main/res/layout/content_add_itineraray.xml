@@ -93,6 +93,7 @@
         android:orientation="vertical"
         android:layout_below="@+id/timeExit"
         android:padding="9dp"
+
         >
         <holidayiq.com.geofenced.TypefacedTextView
             android:id="@+id/Photos"
@@ -108,12 +109,23 @@
             android:layout_width="match_parent"
             android:layout_height="120dp"
             android:layout_gravity="left"
-            android:background="#000000"
+            android:background="@color/gray_half_trans"
             android:visibility="visible"
             app:twowayview_layoutManager="StaggeredGridLayoutManager"
             app:twowayview_numColumns="1"
             app:twowayview_numRows="1" />
 
     </LinearLayout>
+
+    <Button
+        android:layout_width="400dp"
+        android:id="@+id/submit"
+        android:layout_height="wrap_content"
+        android:text="Submit"
+        android:textColor="@android:color/white"
+        android:textSize="26sp"
+        android:background="@android:color/holo_purple"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"/>
 
 </RelativeLayout>

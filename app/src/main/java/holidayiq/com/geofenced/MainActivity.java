@@ -102,53 +102,6 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
         }
-        mRecyclerView = (TwoWayView) findViewById(R.id.list);
-        mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setLongClickable(false);
-        mRecyclerView.setOrientation(org.lucasr.twowayview.TwoWayLayoutManager.Orientation.HORIZONTAL);
-
-
-        for(int i =0; i< 10; i++){
-            NewsStructure newsStr = new NewsStructure();
-            newsStr.setmId(""+strImageUrl[i]);
-            newsArrayLst.add(newsStr);
-        }
-        final Drawable divider = getResources().getDrawable(R.drawable.divider);
-        mRecyclerView.addItemDecoration(new DividerItemDecoration(divider));
-        ItemAdapter mAdapter = new ItemAdapter(MainActivity.this, mRecyclerView, R.layout.activity_main, null);
-        mRecyclerView.setAdapter(mAdapter);
-        mRecyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
-            @SuppressLint("NewApi") @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int scrollState) {
-                boolean pauseOnScroll = false; // or true
-                boolean pauseOnFling = false; // or false
-                final Picasso picasso = Picasso.with(MainActivity.this);
-                switch (scrollState) {
-                    case AbsListView.OnScrollListener.SCROLL_STATE_IDLE:
-                        picasso.resumeTag("mylist");
-                        break;
-                    case AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL:
-                        if (pauseOnScroll) {
-                            picasso.pauseTag("mylist");
-
-                        }
-                        break;
-                    case AbsListView.OnScrollListener.SCROLL_STATE_FLING:
-                        if (pauseOnFling) {
-                            picasso.pauseTag("mylist");
-
-                        }
-                        break;
-                }
-
-
-            }
-
-            @SuppressLint("NewApi") @Override
-            public void onScrolled(RecyclerView recyclerView, int i, int i2) {
-
-            }
-        });
     }
 
     private void triggerGeoFence(){
