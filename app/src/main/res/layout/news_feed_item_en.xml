@@ -16,7 +16,7 @@
 -->
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-  android:layout_width="match_parent"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 <ImageView 
     android:id="@+id/newsTileImage"
@@ -26,4 +26,13 @@
     android:gravity="center"
     android:scaleType="centerCrop"
    />
+
+    <ImageView
+        android:id="@+id/imgQueueMultiSelected"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_margin="3dp"
+        android:background="@drawable/on_focus_checkbox"
+        android:layout_alignParentRight="true"
+        />
 </RelativeLayout>

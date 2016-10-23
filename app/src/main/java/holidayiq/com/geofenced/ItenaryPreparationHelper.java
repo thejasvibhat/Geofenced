@@ -94,6 +94,19 @@ public class ItenaryPreparationHelper {
         journey.setIntermediateDestinations(intermediateDestinations);
         list.add(journey);
 
+        for(int i=0;i<intermediateDestinations.size();i++){
+            IntermediateDestination dst = intermediateDestinations.get(i);
+            IternaryList destination = new IternaryList();
+            destination.setType("destination");
+            destination.setObjectId(dst.getDestinationId());
+            destination.setObjectName(dst.getDestinationName());
+            destination.setParentDestinationId(dst.getDestinationId());
+            destination.setEnterTime(dst.getReachedTime());
+            destination.setExitTime(dst.getExitedTime());
+            destination.setPhotos(photoObjects);
+            list.add(destination);
+        }
+
         IternaryList destination = new IternaryList();
         destination.setType("destination");
         destination.setObjectId(endData.getParent_id());
@@ -182,7 +195,7 @@ public class ItenaryPreparationHelper {
         try {
             Uri uri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
             String[] projection = {MediaStore.Images.Media._ID, MediaStore.Images.Media.DISPLAY_NAME, MediaStore.Images.Media.DATA, MediaStore.Images.Media.DATE_ADDED};
-            Cursor cursor = context.getContentResolver().query(uri, projection, MediaStore.Images.Media.DATE_ADDED + ">= ? AND " + MediaStore.Images.Media.DATE_ADDED + " =< ?", new String[]{fromtime, totime}, null);
+            Cursor cursor = context.getContentResolver().query(uri, projection, MediaStore.Images.Media.DATE_ADDED + ">= ? AND " + MediaStore.Images.Media.DATE_ADDED + " <= ?", new String[]{fromtime, totime}, null);
 
             ArrayList<String> ids = new ArrayList<String>();
             if (cursor != null) {

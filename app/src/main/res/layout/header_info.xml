@@ -24,6 +24,7 @@
         android:layout_height="wrap_content"
         android:textColor="@android:color/black"
         android:textSize="11sp"
+        android:layout_marginTop="2dp"
         app:customTextviewFont="Ubuntu-Regular.ttf"
         android:text="05:15 AM"/>
 
