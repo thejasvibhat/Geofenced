@@ -2,6 +2,9 @@ package holidayiq.com.geofenced;
 
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.os.AsyncTask;
@@ -9,6 +12,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,11 +33,13 @@ import com.squareup.picasso.Picasso;
 import org.lucasr.twowayview.widget.DividerItemDecoration;
 import org.lucasr.twowayview.widget.TwoWayView;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import holidayiq.com.geofenced.geofence.ExceptionUtils;
+import holidayiq.com.geofenced.geofence.GeoDbHelper;
 import holidayiq.com.geofenced.geofence.GeoFenceHelper;
 import holidayiq.com.geofenced.geofence.HIQConstant;
 import holidayiq.com.geofenced.geofence.HIQLocationManager;
@@ -94,11 +100,35 @@ public class EditFormActivity extends AppCompatActivity implements ItemAdapter.s
                 TextView ObjName = (TextView) header_layout.findViewById(R.id.header_text_1);
                 TextView time = (TextView) header_layout.findViewById(R.id.header_text_2);
                 time.setText(HIQConstant.getAmPmTime(obj.getStartTime()));
-                ObjName.setText(obj.getStartDestination()+" ");
-                description_layout = getLayoutInflater().inflate(R.layout.description_text, null);
-                image_layout = getLayoutInflater().inflate(R.layout.photo_selection, null);
-                TwoWayView mRecyclerView = (TwoWayView) image_layout.findViewById(R.id.list);
-                setPhotoRecycler(mRecyclerView,i);
+                ObjName.setText(obj.getStartDestination() + " ");
+                //description_layout = getLayoutInflater().inflate(R.layout.description_text, null);
+                File dbFile = this.getDatabasePath("hiq_in_app.sqlite");
+                ArrayList<Integer> oIds = new ArrayList<>();
+                oIds.add(obj.getStartDestinationId());
+                oIds.add(obj.getEndDestinationId());
+                for(IntermediateDestination oDes:obj.getIntermediateDestinations())
+                {
+                    oIds.add(oDes.getDestinationId());
+                }
+
+                SQLiteDatabase inAppDb = SQLiteDatabase.openDatabase(dbFile.getPath(), null, SQLiteDatabase.OPEN_READONLY | SQLiteDatabase.NO_LOCALIZED_COLLATORS);
+                Cursor dd_res = inAppDb.rawQuery(GeoDbHelper.getAllDestinationQuery(oIds), null);
+                ArrayList<String>oLats = new ArrayList<>();
+                if (dd_res != null) {
+                    while (dd_res.moveToNext()) {
+                        double lattitude = dd_res.getDouble(dd_res.getColumnIndex(GeoDbHelper.SIGHT_SEEING_COULUMN_LAT));
+                        double longitude = dd_res.getDouble(dd_res.getColumnIndex(GeoDbHelper.SIGHT_SEEING_COULUMN_LON));
+                        oLats.add(lattitude+","+longitude);
+                    }
+                }
+
+                image_layout = getLayoutInflater().inflate(R.layout.map_selection, null);
+                Picasso.with(getApplicationContext())
+                        .load("http://maps.google.com/maps/api/staticmap?size=400x300&sensor=false&key=AIzaSyBJ55eQpSdhRFZn0OdyHllbLbxDrFZdTJ8&markers="+ TextUtils.join("|",oLats))
+                        .config(Bitmap.Config.RGB_565)
+                        .fit()
+                        .centerInside()
+                        .into((ImageView) image_layout.findViewById(R.id.mapImage));
                 type_icon.setImageResource(R.drawable.ic_p_flight_icon);
 
             }else if(obj.getType().equalsIgnoreCase("destination")){

@@ -1,5 +1,9 @@
 package holidayiq.com.geofenced.geofence;
 
+import android.text.TextUtils;
+
+import java.util.ArrayList;
+
 /**
  * Created by Manoj on 29/07/2016.
  */
@@ -35,8 +39,9 @@ public class GeoDbHelper {
         return "SELECT * from "+SIGHT_SEEING_TABLE_NAME;
     }
 
-    public static String getAllDestinationQuery(){
-        return "SELECT * from "+DESTINATION_TABLE_NAME;
+    public static String getAllDestinationQuery(ArrayList<Integer> oIds){
+        String where = " where destinationId in ("+TextUtils.join(",",oIds)+")";
+        return "SELECT * from "+DESTINATION_TABLE_NAME+where;
     }
 
     public static String getAllHotelsQueryKey(String q){
