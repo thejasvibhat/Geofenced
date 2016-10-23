@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Created by Manoj on 23/08/2016.
@@ -48,10 +49,11 @@ public class GeoFenceDao {
         else
             values.put(GeoFenceSqlHelper.COLUMN_TIME, timestap + "");
         String tripId = HIQSharedPrefrence.getString("tripId", oContext);
-        if(!tripId.equals("0")) {
-            HIQSharedPrefrence.putString("processTripId", tripId,context);
-            values.put(GeoFenceSqlHelper.COLUMN_TRIP_ID, tripId);
+        if(tripId== null) {
+            tripId = UUID.randomUUID().toString();
+            HIQSharedPrefrence.putString("tripId", tripId,context);
         }
+        values.put(GeoFenceSqlHelper.COLUMN_TRIP_ID, tripId);
         long insertId = database.insert(GeoFenceSqlHelper.TABLE_DATA, null,
                 values);
     }

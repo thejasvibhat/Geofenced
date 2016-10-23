@@ -71,7 +71,7 @@ public class AddItineraray extends AppCompatActivity {
         parentName = dbManager.getDestinationNamefromId(parentId, this);
         GeoFenceDao dao = new GeoFenceDao(this);
         dao.open();
-        mDuration = 60000;
+
         if(type.equals("hotel"))
         {
             dao.createRecord(Integer.valueOf(getIntent().getStringExtra("id")), "Hotel", "Enter", parentName, parentId, name, mEnterTime, getApplicationContext());
