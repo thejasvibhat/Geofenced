@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.anupcowkur.reservoir.Reservoir;
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
@@ -29,6 +30,7 @@ import holidayiq.com.geofenced.geofence.ExceptionUtils;
 import holidayiq.com.geofenced.geofence.GeoFenceHelper;
 import holidayiq.com.geofenced.geofence.HIQConstant;
 import holidayiq.com.geofenced.geofence.HIQLocationManager;
+import holidayiq.com.geofenced.geofence.HIQSharedPrefrence;
 import holidayiq.com.geofenced.geofence.InAppDBHelper;
 import holidayiq.com.geofenced.geofence.SearchScreen;
 import holidayiq.com.geofenced.gsons.ItenaryParent;
@@ -67,6 +69,8 @@ public class MainActivity extends AppCompatActivity {
 //        LinearLayout content_layout = (LinearLayout) findViewById(R.id.content_layout);
         Gson gson = new Gson();
         ItenaryParent iternary = gson.fromJson(HIQConstant.json_obj, ItenaryParent.class);
+        //Reservoir.putAsync("data",iternary,null);
+        //Reservoir.getAsync("data");
 //        Log.e("iternary",iternary.getIternaryList().size()+"");
 //
 //        for (int i=0;i<iternary.getIternaryList().size();i++){

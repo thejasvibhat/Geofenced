@@ -33,6 +33,19 @@ public class GeoSqlDataTrack {
     @Expose
     String parent_name;
 
+    public String getTrip_id() {
+        return trip_id;
+    }
+
+    public void setTrip_id(String trip_id) {
+        this.trip_id = trip_id;
+    }
+
+    @SerializedName("trip_id")
+    @Expose
+    String trip_id;
+
+
     public int getHiq_id() {
         return hiq_id;
     }
