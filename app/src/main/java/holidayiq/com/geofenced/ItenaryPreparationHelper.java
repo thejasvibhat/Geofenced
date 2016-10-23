@@ -145,7 +145,29 @@ public class ItenaryPreparationHelper {
         destination.setObjectName(endData.getParent_name());
         destination.setParentDestinationId(endData.getParent_id());
         destination.setEnterTime(endData.getTime());
-        destination.setPhotos(photoObjects);
+        for(int h=0;h<dataTracks.size();h++){
+            if(dataTracks.get(h).getHiq_id() == endData.getParent_id()){
+                if(dataTracks.get(h).getEvent_type().equalsIgnoreCase("enter")){
+                    destination.setEnterTime(dataTracks.get(h).getTime());
+                }else if(dataTracks.get(h).getEvent_type().equalsIgnoreCase("exit")){
+                    destination.setExitTime(dataTracks.get(h).getTime());
+                }else if(dataTracks.get(h).getEvent_type().equalsIgnoreCase("dwell")){
+                    destination.setExitTime(dataTracks.get(h).getTime());
+                }
+            }
+        }
+        if(destination.getStartTime()==0){
+            if(destination.getEndTime()!=0){
+                destination.setStartTime(destination.getEndTime()-60*1000);
+            }
+        }
+        if(destination.getEndTime()==0){
+            if(destination.getStartTime()!=0){
+                destination.setEndTime(destination.getStartTime()+60*1000);
+            }
+        }
+        List<PhotoObject> photoObjects_int = getPhotosBetweenTimeStamp(context,String.valueOf(destination.getStartTime()/1000),String.valueOf(destination.getEndTime()/1000));
+        destination.setPhotos(photoObjects_int);
         list.add(destination);
 
         List<IternaryList> hotel_ss_objs = new ArrayList<>();
