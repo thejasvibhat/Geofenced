@@ -273,6 +273,7 @@ public class ItenaryPreparationHelper {
 
         itenaryParent.setIternaryList(list);
         String journsada = gson.toJson(itenaryParent);
+        Log.e("dataItenary",journsada);
         try {
             Reservoir.put("dataObj",itenaryParent);
         } catch (IOException e) {
