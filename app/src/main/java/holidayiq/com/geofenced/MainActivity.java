@@ -115,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
         }
         final Drawable divider = getResources().getDrawable(R.drawable.divider);
         mRecyclerView.addItemDecoration(new DividerItemDecoration(divider));
-        ItemAdapter mAdapter = new ItemAdapter(MainActivity.this, mRecyclerView, R.layout.activity_main, newsArrayLst);
+        ItemAdapter mAdapter = new ItemAdapter(MainActivity.this, mRecyclerView, R.layout.activity_main, null);
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
             @SuppressLint("NewApi") @Override

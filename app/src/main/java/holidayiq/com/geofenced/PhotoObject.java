@@ -11,4 +11,5 @@ public class PhotoObject {
     public String display_name;
     public long coverID;
     public long time_added;
+    public boolean isSelected =true;
 }

@@ -94,6 +94,19 @@ public class ItenaryPreparationHelper {
         journey.setIntermediateDestinations(intermediateDestinations);
         list.add(journey);
 
+        for(int i=0;i<intermediateDestinations.size();i++){
+            IntermediateDestination dst = intermediateDestinations.get(i);
+            IternaryList destination = new IternaryList();
+            destination.setType("destination");
+            destination.setObjectId(dst.getDestinationId());
+            destination.setObjectName(dst.getDestinationName());
+            destination.setParentDestinationId(dst.getDestinationId());
+            destination.setEnterTime(dst.getReachedTime());
+            destination.setExitTime(dst.getExitedTime());
+            destination.setPhotos(photoObjects);
+            list.add(destination);
+        }
+
         IternaryList destination = new IternaryList();
         destination.setType("destination");
         destination.setObjectId(endData.getParent_id());

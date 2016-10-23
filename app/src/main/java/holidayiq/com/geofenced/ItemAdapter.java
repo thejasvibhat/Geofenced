@@ -33,6 +33,7 @@ import org.lucasr.twowayview.widget.SpannableGridLayoutManager;
 import org.lucasr.twowayview.widget.StaggeredGridLayoutManager;
 import com.squareup.picasso.Picasso;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,23 +42,25 @@ public class ItemAdapter extends
 	private final Context mContext;
 
 	private final int mLayoutId;
-	ArrayList<NewsStructure> newsArrayLst = new ArrayList<NewsStructure>();
+	public ArrayList<PhotoObject> newsArrayLst = new ArrayList<PhotoObject>();
 
 	static Typeface typeFace;
 	String imageUrl = "";
 
 	public static class SimpleViewHolder extends RecyclerView.ViewHolder {
 		public final ImageView imageView;
+		public final ImageView checkBox;
 
 		public SimpleViewHolder(View view) {
 			super(view);
 			imageView = (ImageView) view.findViewById(R.id.newsTileImage);
+			checkBox = (ImageView) view.findViewById(R.id.imgQueueMultiSelected);
 
 		}
 	}
 
 	public ItemAdapter(Context context, TwoWayView recyclerView, int layoutId,
-			ArrayList<NewsStructure> newsAry) {
+			ArrayList<PhotoObject> newsAry) {
 
 		mContext = context;
 		newsArrayLst = newsAry;
@@ -74,24 +77,22 @@ public class ItemAdapter extends
 
 	@SuppressWarnings("deprecation")
 	@Override
-	public void onBindViewHolder(SimpleViewHolder holder, int position) {
+	public void onBindViewHolder(SimpleViewHolder holder, final int position) {
 		final View itemView = holder.itemView;
 		final int itemId = position;
 		if (mLayoutId == R.layout.activity_main) {
 			int dimenId;
 			final int span;
+			imageUrl = newsArrayLst.get(position).path;
 			if (itemId % 3 == 0) {
-				imageUrl = newsArrayLst.get(position).getmId();
+
+				File f = new File(imageUrl);
 				span = 2;
-//				Picasso.with(mContext).load(imageUrl)
-//						.placeholder(R.drawable.ic_launcher).noFade()
-//						.tag("mylist").into(holder.imageView);
+				Picasso.with(mContext).load(f).into(holder.imageView);
 			} else {
-				imageUrl =  newsArrayLst.get(position).getmId();;
+				File f = new File(imageUrl);
 				span = 1;
-//				Picasso.with(mContext).load(imageUrl)
-//						.placeholder(R.drawable.ic_launcher).noFade()
-//						.tag("mylist").into(holder.imageView);
+				Picasso.with(mContext).load(f).into(holder.imageView);
 			}
 			dimenId = R.dimen.staggered_child_medium;
 			final int size = mContext.getResources().getDimensionPixelSize(
@@ -100,12 +101,28 @@ public class ItemAdapter extends
 					.getLayoutParams();
 			lp.span = span;
 			lp.width = size;
+			if(newsArrayLst.get(position).isSelected){
+				holder.checkBox.setSelected(true);
+			}else{
+				holder.checkBox.setSelected(false);
+			}
 			itemView.setLayoutParams(lp);
+			holder.itemView.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					newsArrayLst.get(position).isSelected = !newsArrayLst.get(position).isSelected;
+					notifyItemChanged(position);
+				}
+			});
 		}
 	}
 
 	@Override
 	public int getItemCount() {
 		return newsArrayLst.size();
+	}
+
+	public ArrayList<PhotoObject> getNewsArrayLst() {
+		return newsArrayLst;
 	}
 }
