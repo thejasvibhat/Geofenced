@@ -265,8 +265,6 @@ public class GeofenceTransitionsIntentService extends IntentService {
                             HIQSharedPrefrence.getString("entryGeoStringContentHome", getApplicationContext()),
                             HIQSharedPrefrence.getString("entryGeoStringDeeplinkHome", getApplicationContext()), "Destination",getApplicationContext(),"Enter",false);
                     HIQSharedPrefrence.putBoolean("exited", false, getApplicationContext());
-                    HIQSharedPrefrence.putString("processTripId", HIQSharedPrefrence.getString("tripId", getApplicationContext()), getApplicationContext());
-                    HIQSharedPrefrence.putString("tripId", "0", getApplicationContext());
 
                 }
             }else if(geoId.startsWith("Hotel")){
@@ -341,12 +339,7 @@ public class GeofenceTransitionsIntentService extends IntentService {
 
             if(geoId.equalsIgnoreCase(GeoFenceService.HOME_GEOFENCE_TAG_NAME)){
                 // show the home notification
-                String tripId = HIQSharedPrefrence.getString("tripId",getApplicationContext());
-                if(tripId == null || tripId.equals("0"))
-                    HIQSharedPrefrence.putString("tripId", UUID.randomUUID().toString(),getApplicationContext());
-
                 HIQSharedPrefrence.putBoolean("exited", true, getApplicationContext());
-                HIQSharedPrefrence.putString("tripId", UUID.randomUUID().toString(),getApplicationContext());
                 //logEvents("Home",geoId,"Exit");
             }else if(geoId.startsWith("Hotel")){
                 String geoName = dbManager.getHotelNameForId(Integer.valueOf(oId));
@@ -399,9 +392,6 @@ public class GeofenceTransitionsIntentService extends IntentService {
 
                     }
                 });
-                String tripId = HIQSharedPrefrence.getString("tripId",getApplicationContext());
-                if(tripId == null)
-                    HIQSharedPrefrence.putString("tripId", UUID.randomUUID().toString(),getApplicationContext());
 
                 locmanager.getLocationGps(false);
                 try{
@@ -497,9 +487,6 @@ public class GeofenceTransitionsIntentService extends IntentService {
                                         HIQSharedPrefrence.getString("entryGeoStringContentDest", getApplicationContext()),
                                         HIQSharedPrefrence.getString("entryGeoStringDeeplinkDest", getApplicationContext()), "Destination", getApplicationContext(), "EnterNewDestination", false);
                             }
-                            String tripId = HIQSharedPrefrence.getString("tripId",getApplicationContext());
-                            if(tripId == null)
-                                HIQSharedPrefrence.putString("tripId", UUID.randomUUID().toString(),getApplicationContext());
 
                             HIQSharedPrefrence.putString(LAST_KNOWN_DESTINATION, parentDestName, this);
                             try{

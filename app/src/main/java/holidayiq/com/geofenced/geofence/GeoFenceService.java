@@ -29,6 +29,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Created by Manoj on 29/07/2016.
@@ -248,6 +249,9 @@ public class GeoFenceService extends IntentService implements GoogleApiClient.Co
             if(distanceFromHome>MAX_DYNAMIC_GEOFENCE_RANGE){
                 HIQSharedPrefrence.putBoolean("exited", true, getApplicationContext()); // mark home exited true so that we can get the home notification
                 isHome = false;
+                String tripId = HIQSharedPrefrence.getString("tripId",getApplicationContext());
+                if(tripId == null)
+                    HIQSharedPrefrence.putString("tripId", UUID.randomUUID().toString(),getApplicationContext());
             }else{
                 isHome = true;
             }
