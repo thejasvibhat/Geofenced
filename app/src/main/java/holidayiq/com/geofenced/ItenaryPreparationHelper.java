@@ -13,6 +13,7 @@ import java.util.List;
 
 import holidayiq.com.geofenced.geofence.GeoFenceDao;
 import holidayiq.com.geofenced.geofence.GeoSqlDataTrack;
+import holidayiq.com.geofenced.geofence.HIQSharedPrefrence;
 import holidayiq.com.geofenced.gsons.IntermediateDestination;
 import holidayiq.com.geofenced.gsons.ItenaryParent;
 import holidayiq.com.geofenced.gsons.IternaryList;
@@ -27,7 +28,8 @@ public class ItenaryPreparationHelper {
         try {
             GeoFenceDao dao = new GeoFenceDao(context);
             dao.open();
-            List<GeoSqlDataTrack> dataTracks = dao.getAllRecords();
+            String tripId = HIQSharedPrefrence.getString("processTripId",context);
+            List<GeoSqlDataTrack> dataTracks = dao.getAllRecords(tripId);
             dao.close();
             Gson gson = new Gson();
             if(dataTracks.size()>0) {

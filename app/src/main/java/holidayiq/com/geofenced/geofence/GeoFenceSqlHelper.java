@@ -20,6 +20,7 @@ public class GeoFenceSqlHelper extends SQLiteOpenHelper {
     public static final String COLUMN_PARENT_NAME = "parent_name";
     public static final String COLUMN_PARENT_ID = "parent_id";
     public static final String COLUMN_TIME = "time";
+    public static final String COLUMN_TRIP_ID = "trip_id";
 
     private static final String DATABASE_NAME = "datatracking.db";
     private static final int DATABASE_VERSION = 1;
@@ -29,7 +30,7 @@ public class GeoFenceSqlHelper extends SQLiteOpenHelper {
             + TABLE_DATA + "( " + COLUMN_ID
             + " integer primary key autoincrement, " + COLUMN_HIQ_ID
             + " integer ,"
-            +COLUMN_TYPE+" text not null ,"+COLUMN_EVENT_TYPE+" text not null ,"+COLUMN_OBJECT_NAME+" text not null,"+COLUMN_PARENT_ID+" text not null,"+COLUMN_PARENT_NAME+" text not null,"+COLUMN_TIME+" text not null );";
+            +COLUMN_TYPE+" text not null ,"+COLUMN_EVENT_TYPE+" text not null ,"+COLUMN_OBJECT_NAME+" text not null,"+COLUMN_PARENT_ID+" text not null,"+COLUMN_PARENT_NAME+" text not null,"+COLUMN_TRIP_ID+" text not null,"+COLUMN_TIME+" text not null );";
 
     public GeoFenceSqlHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);

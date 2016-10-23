@@ -40,6 +40,7 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
+import java.util.UUID;
 
 import holidayiq.com.geofenced.MainActivity;
 import holidayiq.com.geofenced.R;
@@ -264,6 +265,9 @@ public class GeofenceTransitionsIntentService extends IntentService {
                             HIQSharedPrefrence.getString("entryGeoStringContentHome", getApplicationContext()),
                             HIQSharedPrefrence.getString("entryGeoStringDeeplinkHome", getApplicationContext()), "Destination",getApplicationContext(),"Enter",false);
                     HIQSharedPrefrence.putBoolean("exited", false, getApplicationContext());
+                    HIQSharedPrefrence.putString("processTripId", HIQSharedPrefrence.getString("tripId", getApplicationContext()), getApplicationContext());
+                    HIQSharedPrefrence.putString("tripId", "0", getApplicationContext());
+
                 }
             }else if(geoId.startsWith("Hotel")){
                 String geoName = dbManager.getHotelNameForId(Integer.valueOf(oId));
@@ -276,7 +280,7 @@ public class GeofenceTransitionsIntentService extends IntentService {
                 try{
                     GeoFenceDao dao = new GeoFenceDao(this);
                     dao.open();
-                    dao.createRecord(Integer.parseInt(oId),"Hotel","Enter",parentDestName,String.valueOf(nearestDest),geoName);
+                    dao.createRecord(Integer.parseInt(oId),"Hotel","Enter",parentDestName,String.valueOf(nearestDest),geoName,getApplicationContext());
                     dao.close();
                 }catch (Exception e){
                     e.printStackTrace();
@@ -292,7 +296,7 @@ public class GeofenceTransitionsIntentService extends IntentService {
                 try{
                     GeoFenceDao dao = new GeoFenceDao(this);
                     dao.open();
-                    dao.createRecord(Integer.parseInt(oId),"SS","Enter",parentDestName,String.valueOf(nearestDest),geoName);
+                    dao.createRecord(Integer.parseInt(oId),"SS","Enter",parentDestName,String.valueOf(nearestDest),geoName,getApplicationContext());
                     dao.close();
                 }catch (Exception e){
                     e.printStackTrace();
@@ -306,7 +310,7 @@ public class GeofenceTransitionsIntentService extends IntentService {
                 try{
                     GeoFenceDao dao = new GeoFenceDao(this);
                     dao.open();
-                    dao.createRecord(nearestDest,"Destination","Enter",parentDestName,String.valueOf(nearestDest),parentDestName);
+                    dao.createRecord(nearestDest,"Destination","Enter",parentDestName,String.valueOf(nearestDest),parentDestName,getApplicationContext());
                     dao.close();
                 }catch (Exception e){
                     e.printStackTrace();
@@ -338,6 +342,7 @@ public class GeofenceTransitionsIntentService extends IntentService {
             if(geoId.equalsIgnoreCase(GeoFenceService.HOME_GEOFENCE_TAG_NAME)){
                 // show the home notification
                 HIQSharedPrefrence.putBoolean("exited", true, getApplicationContext());
+                HIQSharedPrefrence.putString("tripId", UUID.randomUUID().toString(),getApplicationContext());
                 //logEvents("Home",geoId,"Exit");
             }else if(geoId.startsWith("Hotel")){
                 String geoName = dbManager.getHotelNameForId(Integer.valueOf(oId));
@@ -350,7 +355,7 @@ public class GeofenceTransitionsIntentService extends IntentService {
                 try{
                     GeoFenceDao dao = new GeoFenceDao(this);
                     dao.open();
-                    dao.createRecord(Integer.parseInt(oId),"Hotel","Exit",parentDestName,String.valueOf(nearestDest),geoName);
+                    dao.createRecord(Integer.parseInt(oId),"Hotel","Exit",parentDestName,String.valueOf(nearestDest),geoName,getApplicationContext());
                     dao.close();
                 }catch (Exception e){
                     e.printStackTrace();
@@ -366,7 +371,7 @@ public class GeofenceTransitionsIntentService extends IntentService {
                 try{
                     GeoFenceDao dao = new GeoFenceDao(this);
                     dao.open();
-                    dao.createRecord(Integer.parseInt(oId),"SS","Exit",parentDestName,String.valueOf(nearestDest),geoName);
+                    dao.createRecord(Integer.parseInt(oId),"SS","Exit",parentDestName,String.valueOf(nearestDest),geoName,getApplicationContext());
                     dao.close();
                 }catch (Exception e){
                     e.printStackTrace();
@@ -390,11 +395,15 @@ public class GeofenceTransitionsIntentService extends IntentService {
 
                     }
                 });
+                String tripId = HIQSharedPrefrence.getString("tripId",getApplicationContext());
+                if(tripId == null)
+                    HIQSharedPrefrence.putString("tripId", UUID.randomUUID().toString(),getApplicationContext());
+
                 locmanager.getLocationGps(false);
                 try{
                     GeoFenceDao dao = new GeoFenceDao(this);
                     dao.open();
-                    dao.createRecord(nearestDest,"Destination","Exit",parentDestName,String.valueOf(nearestDest),parentDestName);
+                    dao.createRecord(nearestDest,"Destination","Exit",parentDestName,String.valueOf(nearestDest),parentDestName,getApplicationContext());
                     dao.close();
                 }catch (Exception e){
                     e.printStackTrace();
@@ -437,7 +446,7 @@ public class GeofenceTransitionsIntentService extends IntentService {
                 try{
                     GeoFenceDao dao = new GeoFenceDao(this);
                     dao.open();
-                    dao.createRecord(Integer.parseInt(oId),"Hotel","Dwell",parentDestName,String.valueOf(nearestDest),geoName);
+                    dao.createRecord(Integer.parseInt(oId),"Hotel","Dwell",parentDestName,String.valueOf(nearestDest),geoName,getApplicationContext());
                     dao.close();
                 }catch (Exception e){
                     e.printStackTrace();
@@ -455,7 +464,7 @@ public class GeofenceTransitionsIntentService extends IntentService {
                 try{
                     GeoFenceDao dao = new GeoFenceDao(this);
                     dao.open();
-                    dao.createRecord(Integer.parseInt(oId),"SS","Dwell",parentDestName,String.valueOf(nearestDest),geoName);
+                    dao.createRecord(Integer.parseInt(oId),"SS","Dwell",parentDestName,String.valueOf(nearestDest),geoName,getApplicationContext());
                     dao.close();
                 }catch (Exception e){
                     e.printStackTrace();
@@ -484,11 +493,15 @@ public class GeofenceTransitionsIntentService extends IntentService {
                                         HIQSharedPrefrence.getString("entryGeoStringContentDest", getApplicationContext()),
                                         HIQSharedPrefrence.getString("entryGeoStringDeeplinkDest", getApplicationContext()), "Destination", getApplicationContext(), "EnterNewDestination", false);
                             }
+                            String tripId = HIQSharedPrefrence.getString("tripId",getApplicationContext());
+                            if(tripId == null)
+                                HIQSharedPrefrence.putString("tripId", UUID.randomUUID().toString(),getApplicationContext());
+
                             HIQSharedPrefrence.putString(LAST_KNOWN_DESTINATION, parentDestName, this);
                             try{
                                 GeoFenceDao dao = new GeoFenceDao(this);
                                 dao.open();
-                                dao.createRecord(nearestDest,"Destination","Dwell",parentDestName,String.valueOf(nearestDest),parentDestName);
+                                dao.createRecord(nearestDest,"Destination","Dwell",parentDestName,String.valueOf(nearestDest),parentDestName,getApplicationContext());
                                 dao.close();
                             }catch (Exception e){
                                 e.printStackTrace();

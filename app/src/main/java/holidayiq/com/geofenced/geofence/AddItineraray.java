@@ -62,7 +62,40 @@ public class AddItineraray extends AppCompatActivity {
     }
     private void Submit()
     {
-        IternaryList oList = new IternaryList();
+        String name = getIntent().getStringExtra("name");
+        String id = getIntent().getStringExtra("id");
+        String type = getIntent().getStringExtra("type");
+        String parentId = getIntent().getStringExtra("parentid");
+        String parentName = getIntent().getStringExtra("parentname");
+        GeoFenceDao dao = new GeoFenceDao(this);
+        dao.open();
+        mDuration = 60000;
+        if(type.equals("hotel"))
+        {
+            dao.createRecord(Integer.valueOf(getIntent().getStringExtra("id")), "Hotel", "Enter", "", "", name, mEnterTime, getApplicationContext());
+            dao.createRecord(Integer.valueOf(getIntent().getStringExtra("id")),"Hotel","Dwell","","",name,mEnterTime+30000,getApplicationContext());
+            dao.createRecord(Integer.valueOf(getIntent().getStringExtra("id")),"Hotel","Exit","","",name,mEnterTime + mDuration,getApplicationContext());
+            dao.close();
+
+        }
+        else if(type.equals("destination"))
+        {
+            dao.createRecord(Integer.valueOf(getIntent().getStringExtra("id")), "Destination", "Enter", "", "", name, mEnterTime, getApplicationContext());
+            dao.createRecord(Integer.valueOf(getIntent().getStringExtra("id")),"Destination","Dwell","","",name,mEnterTime+30000,getApplicationContext());
+            dao.createRecord(Integer.valueOf(getIntent().getStringExtra("id")),"Destination","Exit","","",name,mEnterTime + mDuration,getApplicationContext());
+            dao.close();
+
+        }
+        else
+        {
+            dao.createRecord(Integer.valueOf(getIntent().getStringExtra("id")), "SS", "Enter", "", "", name, mEnterTime, getApplicationContext());
+            dao.createRecord(Integer.valueOf(getIntent().getStringExtra("id")),"SS","Dwell","","",name,mEnterTime+30000,getApplicationContext());
+            dao.createRecord(Integer.valueOf(getIntent().getStringExtra("id")),"SS","Exit","","",name,mEnterTime + mDuration,getApplicationContext());
+            dao.close();
+
+        }
+
+/*        IternaryList oList = new IternaryList();
         oList.setEnterTime(mEnterTime);
         oList.setExitTime(mEnterTime + mDuration);
         oList.setObjectId(Integer.valueOf(getIntent().getStringExtra("id")));
@@ -82,8 +115,8 @@ public class AddItineraray extends AppCompatActivity {
                 }
             }
             oList.setPhotos(oAcceptObjArr);
-        }
-        
+        }*/
+
     }
     private void initViews()
     {
