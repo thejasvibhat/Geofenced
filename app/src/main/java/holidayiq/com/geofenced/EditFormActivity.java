@@ -122,14 +122,16 @@ public class EditFormActivity extends AppCompatActivity implements ItemAdapter.s
                 }
 
                 image_layout = getLayoutInflater().inflate(R.layout.map_selection, null);
+                ImageView oView = (ImageView) image_layout.findViewById(R.id.mapImage);
+
                 Picasso.with(getApplicationContext())
                         .load("http://maps.google.com/maps/api/staticmap?size=400x300&sensor=false&key=AIzaSyBJ55eQpSdhRFZn0OdyHllbLbxDrFZdTJ8&markers="+ TextUtils.join("|",oLats))
                         .config(Bitmap.Config.RGB_565)
                         .fit()
-                        .centerInside()
-                        .into((ImageView) image_layout.findViewById(R.id.mapImage));
+                        .into(oView);
 
-                time.setText(HIQConstant.getAmPmTime(obj.getStartTime())+" to "+HIQConstant.getAmPmTime(obj.getEndTime()));
+
+                time.setText(HIQConstant.getAmPmTimeNo(obj.getStartTime())+" to "+HIQConstant.getAmPmTimeNo(obj.getEndTime()));
                 //ObjName.setText(obj.getStartDestination()+" ");
                 ArrayList<String> destinations = new ArrayList<>();
                 destinations.add(obj.getStartDestination());

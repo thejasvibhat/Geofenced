@@ -47,4 +47,19 @@ public class HIQConstant {
         return "";
 
     }
+    public static String getAmPmTimeNo(long milliseconds) {
+
+        try {
+
+            SimpleDateFormat sfdate = new SimpleDateFormat("dd MMM");
+            Date date = new Date();
+            date.setTime(milliseconds);
+            return sfdate.format(date);
+        }catch (Exception e){
+
+        }
+        return "";
+
+    }
+
 }

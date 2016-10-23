@@ -7,9 +7,8 @@
 
     <ImageView
         android:id="@+id/mapImage"
-        android:layout_marginTop="7dp"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="200dp"
         android:layout_gravity="left"
         android:visibility="visible"></ImageView>
 </LinearLayout>
