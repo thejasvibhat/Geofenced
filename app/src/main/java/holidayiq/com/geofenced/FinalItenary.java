@@ -51,7 +51,7 @@ import holidayiq.com.geofenced.gsons.IntermediateDestination;
 import holidayiq.com.geofenced.gsons.ItenaryParent;
 import holidayiq.com.geofenced.gsons.IternaryList;
 
-public class EditFormActivity extends AppCompatActivity implements ItemAdapter.savePhotoObject {
+public class FinalItenary extends AppCompatActivity implements ItemAdapter.savePhotoObject {
 
     LinearLayout content_layout;
     ItenaryParent listObj;
@@ -65,14 +65,14 @@ public class EditFormActivity extends AppCompatActivity implements ItemAdapter.s
             Reservoir.init(this, 2048000); //in bytes
         } catch (Exception e) {
         }
-        setContentView(R.layout.scroll_render);
+        setContentView(R.layout.final_itenary);
 
         FloatingActionButton oBut = (FloatingActionButton) findViewById(R.id.fab);
         if (oBut != null) {
             oBut.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    AddCustomItinerary();
+                    Toast.makeText(FinalItenary.this,"Published",Toast.LENGTH_LONG).show();
                 }
             });
         }
@@ -89,7 +89,7 @@ public class EditFormActivity extends AppCompatActivity implements ItemAdapter.s
 
                     @Override
                     protected Void doInBackground(Void... params) {
-                        ItenaryPreparationHelper.prepareItenary(EditFormActivity.this);
+                        ItenaryPreparationHelper.prepareItenary(FinalItenary.this);
                         return null;
                     }
 
@@ -108,7 +108,7 @@ public class EditFormActivity extends AppCompatActivity implements ItemAdapter.s
 
     private void AddCustomItinerary()
     {
-        Intent search = new Intent(EditFormActivity.this, SearchScreen.class);
+        Intent search = new Intent(FinalItenary.this, SearchScreen.class);
         startActivity(search);
     }
 
@@ -184,8 +184,15 @@ public class EditFormActivity extends AppCompatActivity implements ItemAdapter.s
                 }
                 description_layout = getLayoutInflater().inflate(R.layout.description_text, null);
                 image_layout = getLayoutInflater().inflate(R.layout.photo_selection, null);
-                TwoWayView mRecyclerView = (TwoWayView) image_layout.findViewById(R.id.list);
-                setPhotoRecycler(mRecyclerView,i);
+                if(obj.getPhotos().size()==1){
+                    image_layout = getLayoutInflater().inflate(R.layout.single_image_layput, null);
+                }else if(obj.getPhotos().size()==2){
+                    image_layout = getLayoutInflater().inflate(R.layout.double_image_layout, null);
+                }else if(obj.getPhotos().size()>=3){
+                    image_layout = getLayoutInflater().inflate(R.layout.three_image_layout, null);
+                }else{
+                    image_layout = getLayoutInflater().inflate(R.layout.single_image_layput, null);
+                }
                 type_icon.setImageResource(R.drawable.destination_search_icon);
             }else if(obj.getType().equalsIgnoreCase("hotel")){
                 header_layout = getLayoutInflater().inflate(R.layout.header_info, null);
@@ -199,8 +206,15 @@ public class EditFormActivity extends AppCompatActivity implements ItemAdapter.s
                 }
                 description_layout = getLayoutInflater().inflate(R.layout.description_text, null);
                 image_layout = getLayoutInflater().inflate(R.layout.photo_selection, null);
-                TwoWayView mRecyclerView = (TwoWayView) image_layout.findViewById(R.id.list);
-                setPhotoRecycler(mRecyclerView,i);
+                if(obj.getPhotos().size()==1){
+                    image_layout = getLayoutInflater().inflate(R.layout.single_image_layput, null);
+                }else if(obj.getPhotos().size()==2){
+                    image_layout = getLayoutInflater().inflate(R.layout.double_image_layout, null);
+                }else if(obj.getPhotos().size()>=3){
+                    image_layout = getLayoutInflater().inflate(R.layout.three_image_layout, null);
+                }else{
+                    image_layout = getLayoutInflater().inflate(R.layout.single_image_layput, null);
+                }
                 type_icon.setImageResource(R.drawable.hotel_search_icon);
             }else if(obj.getType().equalsIgnoreCase("ss")){
                 header_layout = getLayoutInflater().inflate(R.layout.header_info, null);
@@ -213,9 +227,17 @@ public class EditFormActivity extends AppCompatActivity implements ItemAdapter.s
                     time.setText(HIQConstant.getAmPmTime(obj.getExitTime()));
                 }
                 description_layout = getLayoutInflater().inflate(R.layout.description_text, null);
-                image_layout = getLayoutInflater().inflate(R.layout.photo_selection, null);
-                TwoWayView mRecyclerView = (TwoWayView) image_layout.findViewById(R.id.list);
-                setPhotoRecycler(mRecyclerView,i);
+                if(obj.getPhotos().size()==1){
+                    image_layout = getLayoutInflater().inflate(R.layout.single_image_layput, null);
+                }else if(obj.getPhotos().size()==2){
+                    image_layout = getLayoutInflater().inflate(R.layout.double_image_layout, null);
+                }else if(obj.getPhotos().size()>=3){
+                    image_layout = getLayoutInflater().inflate(R.layout.three_image_layout, null);
+                }else{
+                    image_layout = getLayoutInflater().inflate(R.layout.single_image_layput, null);
+                }
+                //TwoWayView mRecyclerView = (TwoWayView) image_layout.findViewById(R.id.list);
+                //setPhotoRecycler(mRecyclerView,i);
                 type_icon.setImageResource(R.drawable.sight_seeing_search_icon);
             }
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
@@ -227,20 +249,7 @@ public class EditFormActivity extends AppCompatActivity implements ItemAdapter.s
             content_layout.addView(blanket_layout);
             if(header_layout!=null) {
                 Switch toggg = (Switch) header_layout.findViewById(R.id.enable);
-                if(obj.isEnable()){
-                    toggg.setChecked(true);
-                }else{
-                    toggg.setChecked(false);
-                }
-                final int finalI1 = i;
-                toggg.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                    @Override
-                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                        listObj.getIternaryList().get(finalI1).setEnable(isChecked);
-                        Reservoir.putAsync(dataObj,listObj,null);
-                        //reloadData();
-                    }
-                });
+                toggg.setVisibility(View.GONE);
                 cont.addView(header_layout);
             }
             if(description_layout!=null) {
@@ -268,6 +277,7 @@ public class EditFormActivity extends AppCompatActivity implements ItemAdapter.s
                         showChangeLangDialog(finalI);
                     }
                 });
+                add_desc.setVisibility(View.GONE);
             }
             if(image_layout!=null) {
                 LinearLayout.LayoutParams params_img = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
@@ -285,7 +295,7 @@ public class EditFormActivity extends AppCompatActivity implements ItemAdapter.s
             @Override
             protected Void doInBackground(Void... params) {
                 if(listObj.getIternaryList().get(pos).getPhotos()==null || listObj.getIternaryList().get(pos).getPhotos().isEmpty() ) {
-                    list = ItenaryPreparationHelper.getPhotosBetweenTimeStamp(EditFormActivity.this, "1474740537", "1477332537");
+                    list = ItenaryPreparationHelper.getPhotosBetweenTimeStamp(FinalItenary.this, "1474740537", "1477332537");
                 }else{
                     list = (ArrayList<PhotoObject>) listObj.getIternaryList().get(pos).getPhotos();
                 }
@@ -300,14 +310,14 @@ public class EditFormActivity extends AppCompatActivity implements ItemAdapter.s
                 mRecyclerView.setOrientation(org.lucasr.twowayview.TwoWayLayoutManager.Orientation.HORIZONTAL);
                 final Drawable divider = getResources().getDrawable(R.drawable.divider);
                 mRecyclerView.addItemDecoration(new DividerItemDecoration(divider));
-                ItemAdapter mAdapter = new ItemAdapter(EditFormActivity.this, mRecyclerView, R.layout.activity_main, list,pos,EditFormActivity.this);
+                ItemAdapter mAdapter = new ItemAdapter(FinalItenary.this, mRecyclerView, R.layout.activity_main, list,pos,FinalItenary.this);
                 mRecyclerView.setAdapter(mAdapter);
                 mRecyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
                     @SuppressLint("NewApi") @Override
                     public void onScrollStateChanged(RecyclerView recyclerView, int scrollState) {
                         boolean pauseOnScroll = false; // or true
                         boolean pauseOnFling = false; // or false
-                        final Picasso picasso = Picasso.with(EditFormActivity.this);
+                        final Picasso picasso = Picasso.with(FinalItenary.this);
                         switch (scrollState) {
                             case AbsListView.OnScrollListener.SCROLL_STATE_IDLE:
                                 picasso.resumeTag("mylist");
@@ -343,7 +353,7 @@ public class EditFormActivity extends AppCompatActivity implements ItemAdapter.s
         new AsyncTask<Void,Void,Void>(){
             @Override
             protected Void doInBackground(Void... params) {
-                InAppDBHelper dbHelper = new InAppDBHelper(EditFormActivity.this);
+                InAppDBHelper dbHelper = new InAppDBHelper(FinalItenary.this);
                 dbHelper.checkForUpdate();
                 return null;
             }
@@ -353,11 +363,11 @@ public class EditFormActivity extends AppCompatActivity implements ItemAdapter.s
                 super.onPostExecute(aVoid);
                 try {
                     {
-                        HIQLocationManager locmanager = new HIQLocationManager(EditFormActivity.this);
+                        HIQLocationManager locmanager = new HIQLocationManager(FinalItenary.this);
                         locmanager.setLocationResponseHandler(new HIQLocationManager.LocationResponseHandler() {
                             @Override
                             public void onLocationAvailable(final Location oLocation, boolean plausible) {
-                                GeoFenceHelper.triggerGeoFence(EditFormActivity.this, oLocation.getLatitude(), oLocation.getLongitude());
+                                GeoFenceHelper.triggerGeoFence(FinalItenary.this, oLocation.getLatitude(), oLocation.getLongitude());
                             }
 
                             @Override
@@ -376,20 +386,18 @@ public class EditFormActivity extends AppCompatActivity implements ItemAdapter.s
     }
 
     private void reloadData(){
-       // Gson gson = new Gson();
+        // Gson gson = new Gson();
         //final ItenaryParent iternary = gson.fromJson(HIQConstant.json_obj, ItenaryParent.class);
 
         Reservoir.getAsync(dataObj, ItenaryParent.class, new ReservoirGetCallback<ItenaryParent>() {
             @Override
             public void onSuccess(ItenaryParent itenaryParent) {
-                Toast.makeText(EditFormActivity.this,"data exists",Toast.LENGTH_LONG).show();
                 listObj = itenaryParent;
                 populateData(itenaryParent);
             }
 
             @Override
             public void onFailure(Exception e) {
-                Toast.makeText(EditFormActivity.this,"data not exists",Toast.LENGTH_LONG).show();
                 //Reservoir.putAsync("dataObj",iternary,null);
             }
         });

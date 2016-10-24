@@ -39,6 +39,10 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".FinalItenary"
+            android:theme="@style/AppTheme.Toolbar">
+        </activity>
+        <activity
             android:name=".geofence.AddItineraray"
             android:theme="@style/AppTheme.Toolbar"></activity>
 
