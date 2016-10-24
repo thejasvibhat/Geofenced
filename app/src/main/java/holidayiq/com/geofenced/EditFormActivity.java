@@ -59,7 +59,7 @@ public class EditFormActivity extends AppCompatActivity implements ItemAdapter.s
         super.onCreate(savedInstanceState);
 
         try {
-            Reservoir.init(this, 204800); //in bytes
+            Reservoir.init(this, 2048000); //in bytes
         } catch (Exception e) {
         }
         setContentView(R.layout.scroll_render);
