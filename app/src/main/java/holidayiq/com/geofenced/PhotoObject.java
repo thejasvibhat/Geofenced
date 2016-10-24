@@ -28,5 +28,5 @@ public class PhotoObject {
     public long time_added;
     @SerializedName("isSelected")
     @Expose
-    public Boolean isSelected = true;
+    public boolean isSelected = true;
 }

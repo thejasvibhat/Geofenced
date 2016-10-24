@@ -52,32 +52,42 @@ public class EditFormActivity extends AppCompatActivity implements ItemAdapter.s
 
     LinearLayout content_layout;
     ItenaryParent listObj;
+    public static String dataObj = "dataObj";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         try {
-            Reservoir.init(this, 1004800); //in bytes
+            Reservoir.init(this, 204800); //in bytes
         } catch (Exception e) {
-            //failure
         }
         setContentView(R.layout.scroll_render);
         content_layout = (LinearLayout) findViewById(R.id.content_layout);
-        new AsyncTask<Void,Void,Void>(){
-
+        Reservoir.getAsync(dataObj, ItenaryParent.class, new ReservoirGetCallback<ItenaryParent>() {
             @Override
-            protected Void doInBackground(Void... params) {
-                ItenaryPreparationHelper.prepareItenary(EditFormActivity.this);
-                return null;
-            }
-
-            @Override
-            protected void onPostExecute(Void aVoid) {
-                super.onPostExecute(aVoid);
+            public void onSuccess(ItenaryParent itenaryParent) {
                 reloadData();
             }
-        }.execute();
+
+            @Override
+            public void onFailure(Exception e) {
+                new AsyncTask<Void,Void,Void>(){
+
+                    @Override
+                    protected Void doInBackground(Void... params) {
+                        ItenaryPreparationHelper.prepareItenary(EditFormActivity.this);
+                        return null;
+                    }
+
+                    @Override
+                    protected void onPostExecute(Void aVoid) {
+                        super.onPostExecute(aVoid);
+                    }
+                }.execute();
+            }
+        });
+
         triggerGeoFence();
 
 
@@ -208,12 +218,8 @@ public class EditFormActivity extends AppCompatActivity implements ItemAdapter.s
                     @Override
                     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                         listObj.getIternaryList().get(finalI1).setEnable(isChecked);
-                        try {
-                            Reservoir.put("dataObj",listObj);
-                            //reloadData();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
+                        Reservoir.putAsync(dataObj,listObj,null);
+                        //reloadData();
                     }
                 });
                 cont.addView(header_layout);
@@ -260,7 +266,7 @@ public class EditFormActivity extends AppCompatActivity implements ItemAdapter.s
             @Override
             protected Void doInBackground(Void... params) {
                 if(listObj.getIternaryList().get(pos).getPhotos()==null || listObj.getIternaryList().get(pos).getPhotos().isEmpty() ) {
-                    list = ItenaryPreparationHelper.getPhotosBetweenTimeStamp(EditFormActivity.this, "1477159737", "1477224380");
+                    list = ItenaryPreparationHelper.getPhotosBetweenTimeStamp(EditFormActivity.this, "1474740537", "1477332537");
                 }else{
                     list = (ArrayList<PhotoObject>) listObj.getIternaryList().get(pos).getPhotos();
                 }
@@ -351,10 +357,10 @@ public class EditFormActivity extends AppCompatActivity implements ItemAdapter.s
     }
 
     private void reloadData(){
-        Gson gson = new Gson();
-        final ItenaryParent iternary = gson.fromJson(HIQConstant.json_obj, ItenaryParent.class);
+       // Gson gson = new Gson();
+        //final ItenaryParent iternary = gson.fromJson(HIQConstant.json_obj, ItenaryParent.class);
 
-        Reservoir.getAsync("dataObj", ItenaryParent.class, new ReservoirGetCallback<ItenaryParent>() {
+        Reservoir.getAsync(dataObj, ItenaryParent.class, new ReservoirGetCallback<ItenaryParent>() {
             @Override
             public void onSuccess(ItenaryParent itenaryParent) {
                 Toast.makeText(EditFormActivity.this,"data exists",Toast.LENGTH_LONG).show();
@@ -365,7 +371,7 @@ public class EditFormActivity extends AppCompatActivity implements ItemAdapter.s
             @Override
             public void onFailure(Exception e) {
                 Toast.makeText(EditFormActivity.this,"data not exists",Toast.LENGTH_LONG).show();
-                Reservoir.putAsync("dataObj",iternary,null);
+                //Reservoir.putAsync("dataObj",iternary,null);
             }
         });
     }
@@ -384,7 +390,7 @@ public class EditFormActivity extends AppCompatActivity implements ItemAdapter.s
                 try {
                     String description = edt.getText().toString();
                     listObj.getIternaryList().get(pos).setDescription(description);
-                    Reservoir.put("dataObj",listObj);
+                    Reservoir.put(dataObj,listObj);
                     reloadData();
                 }catch (Exception e){
 
@@ -405,7 +411,7 @@ public class EditFormActivity extends AppCompatActivity implements ItemAdapter.s
     public void editPhotos(int pos, List<PhotoObject> newsArrayLst) {
         try{
             listObj.getIternaryList().get(pos).setPhotos(newsArrayLst);
-            Reservoir.put("dataObj",listObj);
+            Reservoir.put(dataObj,listObj);
         }catch (Exception e){
 
         }

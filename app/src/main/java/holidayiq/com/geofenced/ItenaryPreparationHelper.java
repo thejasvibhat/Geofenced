@@ -137,6 +137,109 @@ public class ItenaryPreparationHelper {
             List<PhotoObject> photoObjects_int = getPhotosBetweenTimeStamp(context,String.valueOf(dst.getReachedTime()/1000),String.valueOf(dst.getExitedTime()/1000));
             destination.setPhotos(photoObjects_int);
             list.add(destination);
+
+            List<IternaryList> hotel_ss_objs = new ArrayList<>();
+            for(int k=0;k<dataTracks.size();k++){
+                if(dataTracks.get(k).getParent_id()== destination.getObjectId()) {
+                    if (dataTracks.get(k).getDest_type().equalsIgnoreCase("hotel") || dataTracks.get(k).getDest_type().equalsIgnoreCase("ss")) {
+                        if (hotel_ss_objs.isEmpty()) {
+                            IternaryList hotel_ss_obj = new IternaryList();
+                            if (dataTracks.get(k).getDest_type().equalsIgnoreCase("hotel")) {
+                                hotel_ss_obj.setType("hotel");
+                            } else if (dataTracks.get(k).getDest_type().equalsIgnoreCase("ss")) {
+                                hotel_ss_obj.setType("ss");
+                            }
+                            hotel_ss_obj.setObjectId(dataTracks.get(k).getHiq_id());
+                            hotel_ss_obj.setObjectName(dataTracks.get(k).getObject_name());
+                            hotel_ss_obj.setParentDestinationId(dataTracks.get(k).getParent_id());
+                            hotel_ss_obj.setParentDestinationName(dataTracks.get(k).getParent_name());
+                            if (dataTracks.get(k).getEvent_type().equalsIgnoreCase("enter")) {
+                                hotel_ss_obj.setEnterTime(dataTracks.get(k).getTime());
+                            } else if (dataTracks.get(k).getEvent_type().equalsIgnoreCase("dwell")) {
+                                hotel_ss_obj.setExitTime(dataTracks.get(k).getTime());
+                            } else if (dataTracks.get(k).getEvent_type().equalsIgnoreCase("exit")) {
+                                hotel_ss_obj.setExitTime(dataTracks.get(k).getTime());
+                            }
+                            if (hotel_ss_obj.getExitTime() == 0) {
+                                if (hotel_ss_obj.getEnterTime() != 0) {
+                                    hotel_ss_obj.setExitTime(hotel_ss_obj.getEnterTime() + 60 * 1000);
+                                }
+                            }
+                            if (hotel_ss_obj.getEnterTime() == 0) {
+                                if (hotel_ss_obj.getExitTime() != 0) {
+                                    hotel_ss_obj.setEnterTime(hotel_ss_obj.getExitTime() - 60 * 1000);
+                                }
+                            }
+                            List<PhotoObject> photoObjects_h_ss = getPhotosBetweenTimeStamp(context, String.valueOf(hotel_ss_obj.getStartTime() / 1000), String.valueOf(hotel_ss_obj.getEndTime() / 1000));
+                            hotel_ss_obj.setPhotos(photoObjects_h_ss);
+                            hotel_ss_objs.add(hotel_ss_obj);
+
+                        } else {
+                            boolean recordExist = false;
+                            for (int m = 0; m < hotel_ss_objs.size(); m++) {
+                                if (hotel_ss_objs.get(m).getObjectId() == dataTracks.get(k).getHiq_id()) {
+                                    IternaryList existObj = hotel_ss_objs.get(m);
+                                    if (dataTracks.get(k).getEvent_type().equalsIgnoreCase("enter")) {
+                                        existObj.setEnterTime(dataTracks.get(k).getTime());
+                                    } else if (dataTracks.get(k).getEvent_type().equalsIgnoreCase("dwell")) {
+                                        existObj.setExitTime(dataTracks.get(k).getTime());
+                                    } else if (dataTracks.get(k).getEvent_type().equalsIgnoreCase("exit")) {
+                                        existObj.setExitTime(dataTracks.get(k).getTime());
+                                    }
+                                    if (existObj.getExitTime() == 0) {
+                                        if (existObj.getEnterTime() != 0) {
+                                            existObj.setExitTime(existObj.getEnterTime() + 60 * 1000);
+                                        }
+                                    }
+                                    if (existObj.getEnterTime() == 0) {
+                                        if (existObj.getExitTime() != 0) {
+                                            existObj.setEnterTime(existObj.getExitTime() - 60 * 1000);
+                                        }
+                                    }
+                                    recordExist = true;
+                                }
+                            }
+                            if (!recordExist) {
+                                IternaryList hotel_ss_obj = new IternaryList();
+                                if (dataTracks.get(k).getDest_type().equalsIgnoreCase("hotel")) {
+                                    hotel_ss_obj.setType("hotel");
+                                } else if (dataTracks.get(k).getDest_type().equalsIgnoreCase("ss")) {
+                                    hotel_ss_obj.setType("ss");
+                                }
+                                hotel_ss_obj.setObjectId(dataTracks.get(k).getHiq_id());
+                                hotel_ss_obj.setObjectName(dataTracks.get(k).getObject_name());
+                                hotel_ss_obj.setParentDestinationId(dataTracks.get(k).getParent_id());
+                                hotel_ss_obj.setParentDestinationName(dataTracks.get(k).getParent_name());
+                                if (dataTracks.get(k).getEvent_type().equalsIgnoreCase("enter")) {
+                                    hotel_ss_obj.setEnterTime(dataTracks.get(k).getTime());
+                                } else if (dataTracks.get(k).getEvent_type().equalsIgnoreCase("dwell")) {
+                                    hotel_ss_obj.setExitTime(dataTracks.get(k).getTime());
+                                } else if (dataTracks.get(k).getEvent_type().equalsIgnoreCase("exit")) {
+                                    hotel_ss_obj.setExitTime(dataTracks.get(k).getTime());
+                                }
+                                if (hotel_ss_obj.getExitTime() == 0) {
+                                    if (hotel_ss_obj.getEnterTime() != 0) {
+                                        hotel_ss_obj.setExitTime(hotel_ss_obj.getEnterTime() + 60 * 1000);
+                                    }
+                                }
+                                if (hotel_ss_obj.getEnterTime() == 0) {
+                                    if (hotel_ss_obj.getExitTime() != 0) {
+                                        hotel_ss_obj.setEnterTime(hotel_ss_obj.getExitTime() - 60 * 1000);
+                                    }
+                                }
+                                List<PhotoObject> photoObjects_h_ss = getPhotosBetweenTimeStamp(context, String.valueOf(hotel_ss_obj.getStartTime() / 1000), String.valueOf(hotel_ss_obj.getEndTime() / 1000));
+                                hotel_ss_obj.setPhotos(photoObjects_h_ss);
+                                hotel_ss_objs.add(hotel_ss_obj);
+                            }
+                        }
+                    }
+                }
+            }
+
+            for (int r=0;r<hotel_ss_objs.size();r++){
+                list.add(hotel_ss_objs.get(r));
+            }
+
         }
 
         IternaryList destination = new IternaryList();
@@ -170,67 +273,69 @@ public class ItenaryPreparationHelper {
         destination.setPhotos(photoObjects_int);
         list.add(destination);
 
+
         List<IternaryList> hotel_ss_objs = new ArrayList<>();
         for(int k=0;k<dataTracks.size();k++){
-            if(dataTracks.get(k).getDest_type().equalsIgnoreCase("hotel") || dataTracks.get(k).getDest_type().equalsIgnoreCase("ss")) {
-                if (hotel_ss_objs.isEmpty()) {
-                    IternaryList hotel_ss_obj = new IternaryList();
-                    if (dataTracks.get(k).getDest_type().equalsIgnoreCase("hotel")) {
-                        hotel_ss_obj.setType("hotel");
-                    } else if (dataTracks.get(k).getDest_type().equalsIgnoreCase("ss")) {
-                        hotel_ss_obj.setType("ss");
-                    }
-                    hotel_ss_obj.setObjectId(dataTracks.get(k).getHiq_id());
-                    hotel_ss_obj.setObjectName(dataTracks.get(k).getObject_name());
-                    hotel_ss_obj.setParentDestinationId(dataTracks.get(k).getParent_id());
-                    hotel_ss_obj.setParentDestinationName(dataTracks.get(k).getParent_name());
-                    if (dataTracks.get(k).getEvent_type().equalsIgnoreCase("enter")) {
-                        hotel_ss_obj.setEnterTime(dataTracks.get(k).getTime());
-                    } else if (dataTracks.get(k).getEvent_type().equalsIgnoreCase("dwell")) {
-                        hotel_ss_obj.setExitTime(dataTracks.get(k).getTime());
-                    } else if (dataTracks.get(k).getEvent_type().equalsIgnoreCase("exit")) {
-                        hotel_ss_obj.setExitTime(dataTracks.get(k).getTime());
-                    }
-                    if(hotel_ss_obj.getExitTime()==0){
-                        if(hotel_ss_obj.getEnterTime()!=0){
-                            hotel_ss_obj.setExitTime(hotel_ss_obj.getEnterTime()+60*1000);
+            if(dataTracks.get(k).getParent_id()== destination.getObjectId()) {
+                if (dataTracks.get(k).getDest_type().equalsIgnoreCase("hotel") || dataTracks.get(k).getDest_type().equalsIgnoreCase("ss")) {
+                    if (hotel_ss_objs.isEmpty()) {
+                        IternaryList hotel_ss_obj = new IternaryList();
+                        if (dataTracks.get(k).getDest_type().equalsIgnoreCase("hotel")) {
+                            hotel_ss_obj.setType("hotel");
+                        } else if (dataTracks.get(k).getDest_type().equalsIgnoreCase("ss")) {
+                            hotel_ss_obj.setType("ss");
                         }
-                    }
-                    if(hotel_ss_obj.getEnterTime()==0){
-                        if(hotel_ss_obj.getExitTime()!=0){
-                            hotel_ss_obj.setEnterTime(hotel_ss_obj.getExitTime()-60*1000);
+                        hotel_ss_obj.setObjectId(dataTracks.get(k).getHiq_id());
+                        hotel_ss_obj.setObjectName(dataTracks.get(k).getObject_name());
+                        hotel_ss_obj.setParentDestinationId(dataTracks.get(k).getParent_id());
+                        hotel_ss_obj.setParentDestinationName(dataTracks.get(k).getParent_name());
+                        if (dataTracks.get(k).getEvent_type().equalsIgnoreCase("enter")) {
+                            hotel_ss_obj.setEnterTime(dataTracks.get(k).getTime());
+                        } else if (dataTracks.get(k).getEvent_type().equalsIgnoreCase("dwell")) {
+                            hotel_ss_obj.setExitTime(dataTracks.get(k).getTime());
+                        } else if (dataTracks.get(k).getEvent_type().equalsIgnoreCase("exit")) {
+                            hotel_ss_obj.setExitTime(dataTracks.get(k).getTime());
                         }
-                    }
-                    List<PhotoObject> photoObjects_h_ss = getPhotosBetweenTimeStamp(context,String.valueOf(hotel_ss_obj.getStartTime()/1000),String.valueOf(hotel_ss_obj.getEndTime()/1000));
-                    hotel_ss_obj.setPhotos(photoObjects_h_ss);
-                    hotel_ss_objs.add(hotel_ss_obj);
+                        if (hotel_ss_obj.getExitTime() == 0) {
+                            if (hotel_ss_obj.getEnterTime() != 0) {
+                                hotel_ss_obj.setExitTime(hotel_ss_obj.getEnterTime() + 60 * 1000);
+                            }
+                        }
+                        if (hotel_ss_obj.getEnterTime() == 0) {
+                            if (hotel_ss_obj.getExitTime() != 0) {
+                                hotel_ss_obj.setEnterTime(hotel_ss_obj.getExitTime() - 60 * 1000);
+                            }
+                        }
+                        List<PhotoObject> photoObjects_h_ss = getPhotosBetweenTimeStamp(context, String.valueOf(hotel_ss_obj.getStartTime() / 1000), String.valueOf(hotel_ss_obj.getEndTime() / 1000));
+                        hotel_ss_obj.setPhotos(photoObjects_h_ss);
+                        hotel_ss_objs.add(hotel_ss_obj);
 
-                } else {
-                    boolean recordExist = false;
-                    for (int m = 0; m < hotel_ss_objs.size(); m++) {
-                        if (hotel_ss_objs.get(m).getObjectId() == dataTracks.get(k).getHiq_id()){
-                            IternaryList existObj = hotel_ss_objs.get(m);
-                            if (dataTracks.get(k).getEvent_type().equalsIgnoreCase("enter")) {
-                                existObj.setEnterTime(dataTracks.get(k).getTime());
-                            } else if (dataTracks.get(k).getEvent_type().equalsIgnoreCase("dwell")) {
-                                existObj.setExitTime(dataTracks.get(k).getTime());
-                            } else if (dataTracks.get(k).getEvent_type().equalsIgnoreCase("exit")) {
-                                existObj.setExitTime(dataTracks.get(k).getTime());
-                            }
-                            if(existObj.getExitTime()==0){
-                                if(existObj.getEnterTime()!=0){
-                                    existObj.setExitTime(existObj.getEnterTime()+60*1000);
+                    } else {
+                        boolean recordExist = false;
+                        for (int m = 0; m < hotel_ss_objs.size(); m++) {
+                            if (hotel_ss_objs.get(m).getObjectId() == dataTracks.get(k).getHiq_id()) {
+                                IternaryList existObj = hotel_ss_objs.get(m);
+                                if (dataTracks.get(k).getEvent_type().equalsIgnoreCase("enter")) {
+                                    existObj.setEnterTime(dataTracks.get(k).getTime());
+                                } else if (dataTracks.get(k).getEvent_type().equalsIgnoreCase("dwell")) {
+                                    existObj.setExitTime(dataTracks.get(k).getTime());
+                                } else if (dataTracks.get(k).getEvent_type().equalsIgnoreCase("exit")) {
+                                    existObj.setExitTime(dataTracks.get(k).getTime());
                                 }
-                            }
-                            if(existObj.getEnterTime()==0){
-                                if(existObj.getExitTime()!=0){
-                                    existObj.setEnterTime(existObj.getExitTime()-60*1000);
+                                if (existObj.getExitTime() == 0) {
+                                    if (existObj.getEnterTime() != 0) {
+                                        existObj.setExitTime(existObj.getEnterTime() + 60 * 1000);
+                                    }
                                 }
+                                if (existObj.getEnterTime() == 0) {
+                                    if (existObj.getExitTime() != 0) {
+                                        existObj.setEnterTime(existObj.getExitTime() - 60 * 1000);
+                                    }
+                                }
+                                recordExist = true;
                             }
-                            recordExist = true;
                         }
-                    }
-                    if(!recordExist){
+                        if (!recordExist) {
                             IternaryList hotel_ss_obj = new IternaryList();
                             if (dataTracks.get(k).getDest_type().equalsIgnoreCase("hotel")) {
                                 hotel_ss_obj.setType("hotel");
@@ -248,28 +353,28 @@ public class ItenaryPreparationHelper {
                             } else if (dataTracks.get(k).getEvent_type().equalsIgnoreCase("exit")) {
                                 hotel_ss_obj.setExitTime(dataTracks.get(k).getTime());
                             }
-                            if(hotel_ss_obj.getExitTime()==0){
-                                if(hotel_ss_obj.getEnterTime()!=0){
-                                    hotel_ss_obj.setExitTime(hotel_ss_obj.getEnterTime()+60*1000);
+                            if (hotel_ss_obj.getExitTime() == 0) {
+                                if (hotel_ss_obj.getEnterTime() != 0) {
+                                    hotel_ss_obj.setExitTime(hotel_ss_obj.getEnterTime() + 60 * 1000);
                                 }
                             }
-                            if(hotel_ss_obj.getEnterTime()==0){
-                                if(hotel_ss_obj.getExitTime()!=0){
-                                    hotel_ss_obj.setEnterTime(hotel_ss_obj.getExitTime()-60*1000);
+                            if (hotel_ss_obj.getEnterTime() == 0) {
+                                if (hotel_ss_obj.getExitTime() != 0) {
+                                    hotel_ss_obj.setEnterTime(hotel_ss_obj.getExitTime() - 60 * 1000);
                                 }
                             }
-                        List<PhotoObject> photoObjects_h_ss = getPhotosBetweenTimeStamp(context,String.valueOf(hotel_ss_obj.getStartTime()/1000),String.valueOf(hotel_ss_obj.getEndTime()/1000));
-                        hotel_ss_obj.setPhotos(photoObjects_h_ss);
-                        hotel_ss_objs.add(hotel_ss_obj);
+                            List<PhotoObject> photoObjects_h_ss = getPhotosBetweenTimeStamp(context, String.valueOf(hotel_ss_obj.getStartTime() / 1000), String.valueOf(hotel_ss_obj.getEndTime() / 1000));
+                            hotel_ss_obj.setPhotos(photoObjects_h_ss);
+                            hotel_ss_objs.add(hotel_ss_obj);
+                        }
                     }
                 }
             }
         }
 
-        for (int i=0;i<hotel_ss_objs.size();i++){
-            list.add(hotel_ss_objs.get(i));
+        for (int r=0;r<hotel_ss_objs.size();r++){
+            list.add(hotel_ss_objs.get(r));
         }
-
 
         itenaryParent.setIternaryList(list);
         String journsada = gson.toJson(itenaryParent);

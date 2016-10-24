@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="120dp"
         android:layout_gravity="left"
-        android:background="#000000"
+        android:background="@color/gray_half_trans"
         android:visibility="visible"
         app:twowayview_layoutManager="StaggeredGridLayoutManager"
         app:twowayview_numColumns="1"
